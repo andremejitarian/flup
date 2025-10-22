@@ -1,0 +1,173 @@
+{
+  "evento": {
+    "id": "goethe-diaspora-2024",
+    "slug": "palestra-diaspora-africana-alemanha",
+    "tipo": "palestra",
+    "status": "ativo",
+    "inscricoes_abertas": true,
+    "data_inicio_inscricoes": "2024-09-01",
+    "data_fim_inscricoes": "2024-10-15",
+    "limite_participantes": null
+  },
+  
+  "branding": {
+    "titulo": "PALESTRA INAUGURAL",
+    "subtitulo": "A Diáspora Africana na Alemanha: Movimentos Históricos e Novas Perspectivas através da Literatura",
+    "banner": {
+      "url": "https://res.cloudinary.com/exemplo/banner-diaspora.jpg",
+      "alt": "Banner Palestra Diáspora Africana"
+    },
+    "logos": [
+      {
+        "url": "https://assets.flup.org.br/logos/flup-circular.png",
+        "alt": "Logo Flup",
+        "posicao": "principal",
+        "ordem": 1
+      },
+      {
+        "url": "https://assets.goethe.de/logos/goethe-circular.png",
+        "alt": "Logo Goethe-Institut",
+        "posicao": "parceiro",
+        "ordem": 2
+      }
+    ],
+    "cores": {
+      "primaria": "#2C5530",
+      "secundaria": "#FF8C42",
+      "destaque": "#1A3A1F"
+    }
+  },
+  
+  "detalhes": {
+    "descricao": "No dia 16 de outubro, o Goethe-Institut Rio de Janeiro abre a oficina \"Encruzilhadas da Diáspora: Tradução como Travessia e Criação\" com a palestra inaugural da Profa. Dra. Jess Oliveira.",
+    "data_evento": "2024-10-16",
+    "horarios": [
+      {
+        "tipo": "cafe",
+        "horario": "09:00",
+        "descricao": "☕ Café de Boas-Vindas"
+      },
+      {
+        "tipo": "palestra",
+        "horario": "10:00",
+        "horario_fim": "11:30",
+        "descricao": "🎤 Palestra Inaugural"
+      }
+    ],
+    "local": {
+      "nome": "Biblioteca do Goethe-Institut Rio de Janeiro",
+      "endereco": "Rua Exemplo, 123 - Centro, Rio de Janeiro - RJ",
+      "maps_url": "https://maps.google.com/?q=Goethe+Institut+Rio"
+    },
+    "palestrantes": [
+      {
+        "nome": "Profa. Dra. Jess Oliveira",
+        "bio": "Professora e pesquisadora especializada em Diáspora Africana",
+        "foto": "https://assets.flup.org.br/palestrantes/jess-oliveira.jpg"
+      }
+    ],
+    "parceiros": [
+      {
+        "nome": "Goethe-Institut Rio de Janeiro",
+        "url": "https://www.goethe.de/rio"
+      },
+      {
+        "nome": "Festa Literária das Periferias (Flup)",
+        "url": "https://www.flup.org.br"
+      }
+    ],
+    "observacoes": "🤝 Parceria: Festa Literária das Periferias (Flup)\nParte da oficina \"Encruzilhadas da Diáspora: Tradução como Travessia e Criação\""
+  },
+  
+  "modalidades": {
+    "habilitadas": ["presencial", "online"],
+    "opcoes": [
+      {
+        "id": "presencial",
+        "nome": "🏛️ Presencial",
+        "descricao": "Biblioteca do Goethe-Institut (Entrada Livre)",
+        "detalhes": "Café da manhã às 9h, palestra às 10h.",
+        "limite_vagas": 50,
+        "gratuito": true,
+        "valor": 0
+      },
+      {
+        "id": "online",
+        "nome": "💻 Online",
+        "descricao": "Via Zoom (Link será enviado por e-mail)",
+        "detalhes": "O link do Zoom será enviado 1 dia antes do evento.",
+        "limite_vagas": null,
+        "gratuito": true,
+        "valor": 0
+      }
+    ]
+  },
+  
+  "formulario": {
+    "campos_obrigatorios": [
+      "nome_completo",
+      "email",
+      "telefone",
+      "modalidade_participacao"
+    ],
+    "campos_opcionais": [
+      "cpf",
+      "data_nascimento",
+      "genero"
+    ],
+    "campos_personalizados": [
+      {
+        "id": "interesse_oficina",
+        "tipo": "checkbox",
+        "label": "Tenho interesse em receber informações sobre a oficina completa \"Encruzilhadas da Diáspora: Tradução como Travessia e Criação\"",
+        "obrigatorio": false,
+        "secao": "interesse_adicional"
+      }
+    ],
+    "validacoes": {
+      "cpf": {
+        "habilitado": true,
+        "obrigatorio": false,
+        "validar_digitos": true
+      },
+      "telefone": {
+        "paises_habilitados": ["+55", "+1", "+351", "+49", "+34", "+33"],
+        "pais_padrao": "+55"
+      }
+    }
+  },
+  
+  "confirmacao": {
+    "mensagem_sucesso": "Sua inscrição para a Palestra Inaugural foi realizada com sucesso!",
+    "instrucoes_presencial": "🏛️ Nos vemos no dia 16 de outubro às 9h para o café da manhã!\n\n**Endereço:** Goethe-Institut Rio de Janeiro",
+    "instrucoes_online": "📧 O link do Zoom será enviado para o seu e-mail 1 dia antes do evento.",
+    "email_confirmacao": {
+      "habilitado": true,
+      "remetente": "eventos@flup.org.br",
+      "assunto": "Confirmação de Inscrição - Palestra Diáspora Africana"
+    }
+  },
+  
+  "integracao": {
+    "webhook_url": "https://criadordigital-n8n-webhook.kttqgl.easypanel.host/webhook/5fd5f5c1-6d60-4c4f-a463-cc9b0302afae",
+    "webhook_timeout": 15000,
+    "webhook_retry": 1,
+    "campos_extras": {
+      "origem": "formulario_web",
+      "campanha": "encruzilhadas_diaspora_2024"
+    }
+  },
+  
+  "termos": {
+    "texto": "1. Os dados fornecidos serão utilizados exclusivamente para comunicação sobre este evento.\n2. Ao se inscrever, você autoriza o Goethe-Institut e a Flup a enviarem informações sobre eventos futuros.\n3. Para participação online, o link do Zoom será enviado 1 dia antes do evento.\n4. A entrada é gratuita e não há cobrança de taxa de inscrição.\n5. Em caso de dúvidas, entre em contato com o Goethe-Institut Rio de Janeiro.",
+    "url_completa": "https://www.flup.org.br/termos-eventos",
+    "obrigatorio": true
+  },
+  
+  "seo": {
+    "title": "Inscrição - Palestra Diáspora Africana na Alemanha | Goethe-Institut",
+    "description": "Inscreva-se na palestra inaugural com Profa. Dra. Jess Oliveira sobre Diáspora Africana na Alemanha. Evento gratuito presencial e online.",
+    "keywords": "diáspora africana, alemanha, literatura, goethe institut, flup, palestra",
+    "og_image": "https://res.cloudinary.com/exemplo/banner-diaspora.jpg"
+  }
+}
