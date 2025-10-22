@@ -1,0 +1,341 @@
+{
+  "evento": {
+    "id": "fazenda-serrinha-retiro-2025",
+    "slug": "retiro-fazenda-serrinha-janeiro-2025",
+    "tipo": "hospedagem_e_evento",
+    "status": "ativo",
+    "inscricoes_abertas": true,
+    "data_inicio_inscricoes": "2024-11-01",
+    "data_fim_inscricoes": "2025-01-10",
+    "limite_participantes": 50
+  },
+  
+  "branding": {
+    "titulo": "RETIRO DE VERÃO 2025",
+    "subtitulo": "Conexão, Natureza e Transformação na Fazenda Serrinha",
+    "banner": {
+      "url": "https://res.cloudinary.com/exemplo/banner-retiro-2025.jpg",
+      "alt": "Banner Retiro Fazenda Serrinha"
+    },
+    "logos": [
+      {
+        "url": "https://assets.fazendaserrinha.com.br/logos/fs_logo_circular.png",
+        "alt": "Logo Fazenda Serrinha",
+        "posicao": "principal",
+        "ordem": 1
+      }
+    ],
+    "cores": {
+      "primaria": "#2C5530",
+      "secundaria": "#8B4513",
+      "destaque": "#1A3A1F"
+    }
+  },
+  
+  "detalhes": {
+    "descricao": "Um retiro transformador em meio à natureza exuberante da Fazenda Serrinha. Desconecte-se da rotina e reconecte-se consigo mesmo.",
+    "data_evento": "2025-01-15",
+    "data_evento_fim": "2025-01-20",
+    "horarios": [
+      {
+        "tipo": "checkin",
+        "horario": "14:00",
+        "descricao": "🏡 Check-in"
+      },
+      {
+        "tipo": "checkout",
+        "horario": "12:00",
+        "descricao": "👋 Check-out"
+      }
+    ],
+    "local": {
+      "nome": "Fazenda Serrinha",
+      "endereco": "Estrada da Serrinha, Km 12 - Teresópolis, RJ",
+      "maps_url": "https://maps.google.com/?q=Fazenda+Serrinha+Teresopolis"
+    },
+    "facilitadores": [
+      {
+        "nome": "Ana Silva",
+        "especialidade": "Yoga e Meditação",
+        "foto": "https://assets.fazendaserrinha.com.br/facilitadores/ana-silva.jpg"
+      }
+    ],
+    "observacoes": "Traga roupas confortáveis e protetor solar"
+  },
+  
+  "modalidades": {
+    "habilitadas": ["hospedagem_e_evento", "evento_apenas"],
+    "tipo_formulario": "hospedagem_e_evento"
+  },
+  
+  "periodos_estadia_opcoes": [
+    {
+      "id": "periodo_completo",
+      "label": "Período Completo (5 dias/4 noites)",
+      "data_checkin": "2025-01-15T14:00:00",
+      "data_checkout": "2025-01-20T12:00:00",
+      "num_diarias": 4,
+      "primeira_refeicao": "Jantar (15/01)",
+      "ultima_refeicao": "Café da Manhã (20/01)",
+      "valores_evento_opcoes": [
+        {
+          "id": "evento_completo",
+          "label": "Programação Completa",
+          "descricao": "Todas as atividades do retiro incluídas",
+          "valor": 800.00
+        },
+        {
+          "id": "evento_parcial",
+          "label": "Programação Parcial",
+          "descricao": "Atividades selecionadas",
+          "valor": 500.00
+        }
+      ]
+    },
+    {
+      "id": "fim_semana",
+      "label": "Final de Semana (2 dias/1 noite)",
+      "data_checkin": "2025-01-18T14:00:00",
+      "data_checkout": "2025-01-20T12:00:00",
+      "num_diarias": 1,
+      "primeira_refeicao": "Jantar (18/01)",
+      "ultima_refeicao": "Café da Manhã (20/01)",
+      "valores_evento_opcoes": [
+        {
+          "id": "evento_fim_semana",
+          "label": "Programação Final de Semana",
+          "descricao": "Atividades do final de semana",
+          "valor": 300.00
+        }
+      ]
+    }
+  ],
+  
+  "tipos_acomodacao": [
+    {
+      "id": "quarto_compartilhado",
+      "label": "Quarto Compartilhado",
+      "descricao": "Quarto com 4 camas (banheiro compartilhado)",
+      "capacidade_maxima": 4,
+      "valor_diaria_por_pessoa": 150.00,
+      "preferencia_cama_habilitada": true
+    },
+    {
+      "id": "quarto_duplo",
+      "label": "Quarto Duplo",
+      "descricao": "Quarto com 2 camas (banheiro privativo)",
+      "capacidade_maxima": 2,
+      "valor_diaria_por_pessoa": 250.00,
+      "preferencia_cama_habilitada": true
+    },
+    {
+      "id": "quarto_individual",
+      "label": "Quarto Individual",
+      "descricao": "Quarto privativo (banheiro privativo)",
+      "capacidade_maxima": 1,
+      "valor_diaria_por_pessoa": 400.00,
+      "preferencia_cama_habilitada": false
+    }
+  ],
+  
+  "formulario": {
+    "campos_obrigatorios": [
+      "nome_completo",
+      "email",
+      "telefone",
+      "cpf",
+      "data_nascimento"
+    ],
+    "campos_opcionais": [
+      "genero",
+      "restricoes_alimentares"
+    ],
+    "campos_personalizados": [],
+    "validacoes": {
+      "cpf": {
+        "habilitado": true,
+        "obrigatorio": true,
+        "validar_digitos": true
+      },
+      "telefone": {
+        "paises_habilitados": ["+55", "+1", "+351"],
+        "pais_padrao": "+55"
+      }
+    }
+  },
+  
+  "pagamento": {
+    "habilitado": true,
+    "moeda": "BRL",
+    "exibir_resumo_financeiro": true,
+    "formas_pagamento_opcoes": [
+      {
+        "id": "pix_vista",
+        "label": "PIX à Vista",
+        "tipo": "pix",
+        "descricao": "<h4>POLÍTICA DE CONFIRMAÇÃO E CANCELAMENTO</h4><p><b>Confirmação da Reserva:</b></p><p>O sinal corresponde a <b>30% do valor total da reserva</b>, e deve ser pago no momento da reserva.<br>Enquanto o pagamento do sinal não for realizado, a hospedagem permanecerá disponível para outros interessados.<br>O saldo de <b>70%</b> deverá ser pago até a data de saída.</p><p><b>Cancelamento:</b></p><ul><li>Até 30 dias antes da data de chegada – reembolso de 100% do valor pago.</li><li>Até 15 dias antes da data de chegada – reembolso de 50% do valor pago.</li><li>Menos de 15 dias antes da data de chegada – sem reembolso.</li></ul>",
+        "taxa_gateway_percentual": 0.01,
+        "parcelas_maximas": 1,
+        "juros": false
+      },
+      {
+        "id": "pix_sinal",
+        "label": "PIX Sinal 30% + 70%",
+        "tipo": "pix_sinal",
+        "descricao": "<h4>POLÍTICA DE CONFIRMAÇÃO E CANCELAMENTO</h4><p><b>Confirmação da Reserva:</b></p><p>Pagamento dividido em 2 etapas via PIX:</p><ul><li><b>1ª parcela (30%):</b> No momento da reserva</li><li><b>2ª parcela (70%):</b> Até a data de saída</li></ul><p><b>Cancelamento:</b></p><ul><li>Até 30 dias antes da data de chegada – reembolso de 100% do valor pago.</li><li>Até 15 dias antes da data de chegada – reembolso de 50% do valor pago.</li><li>Menos de 15 dias antes da data de chegada – sem reembolso.</li></ul>",
+        "taxa_gateway_percentual": 0.01,
+        "parcelas_maximas": 2,
+        "juros": false,
+        "percentual_primeira_parcela": 0.30
+      },
+      {
+        "id": "cartao_vista",
+        "label": "Cartão à Vista",
+        "tipo": "cartao",
+        "descricao": "<h4>POLÍTICA DE CONFIRMAÇÃO E CANCELAMENTO</h4><p><b>Confirmação da Reserva:</b></p><p>Pagamento integral no cartão de crédito à vista.</p><p><b>Cancelamento:</b></p><ul><li>Até 30 dias antes da data de chegada – reembolso de 100% do valor pago.</li><li>Até 15 dias antes da data de chegada – reembolso de 50% do valor pago.</li><li>Menos de 15 dias antes da data de chegada – sem reembolso.</li></ul>",
+        "taxa_gateway_percentual": 0.035,
+        "parcelas_maximas": 1,
+        "juros": false
+      },
+      {
+        "id": "cartao_parcelado",
+        "label": "Cartão Parcelado (até 6x sem juros)",
+        "tipo": "cartao_parcelado",
+        "descricao": "<h4>POLÍTICA DE CONFIRMAÇÃO E CANCELAMENTO</h4><p><b>Confirmação da Reserva:</b></p><p>Parcelamento em até <b>6 vezes sem juros</b> no cartão de crédito.</p><p><b>Cancelamento:</b></p><ul><li>Até 30 dias antes da data de chegada – reembolso de 100% do valor pago.</li><li>Até 15 dias antes da data de chegada – reembolso de 50% do valor pago.</li><li>Menos de 15 dias antes da data de chegada – sem reembolso.</li></ul>",
+        "taxa_gateway_percentual": 0.035,
+        "parcelas_maximas": 6,
+        "juros": false
+      }
+    ]
+  },
+  
+  "regras_idade_precificacao": {
+    "habilitado": true,
+    "hospedagem": [
+      {
+        "faixa_min_anos": 0,
+        "faixa_max_anos": 4,
+        "percentual_valor_adulto": 0.0,
+        "limite_gratuidade_por_reserva": 1,
+        "regra_excedente_gratuito": {
+          "percentual_valor_adulto": 0.5,
+          "descricao": "Crianças 0-4 anos extras pagam 50% da hospedagem"
+        },
+        "descricao": "Primeira criança de 0-4 anos grátis"
+      },
+      {
+        "faixa_min_anos": 5,
+        "faixa_max_anos": 10,
+        "percentual_valor_adulto": 0.5,
+        "descricao": "Crianças de 5 a 10 anos pagam 50% do valor de hospedagem"
+      },
+      {
+        "faixa_min_anos": 11,
+        "percentual_valor_adulto": 1.0,
+        "descricao": "Acima de 10 anos pagam valor integral de hospedagem"
+      }
+    ],
+    "evento": [
+      {
+        "faixa_min_anos": 0,
+        "faixa_max_anos": 4,
+        "percentual_valor_adulto": 0.0,
+        "limite_gratuidade_por_reserva": 1,
+        "regra_excedente_gratuito": {
+          "percentual_valor_adulto": 0.5,
+          "descricao": "Crianças 0-4 anos extras pagam 50% do evento"
+        },
+        "descricao": "Primeira criança de 0-4 anos grátis"
+      },
+      {
+        "faixa_min_anos": 5,
+        "faixa_max_anos": 10,
+        "percentual_valor_adulto": 0.5,
+        "descricao": "Crianças de 5 a 10 anos pagam 50% do valor do evento"
+      },
+      {
+        "faixa_min_anos": 11,
+        "percentual_valor_adulto": 1.0,
+        "descricao": "Acima de 10 anos pagam valor integral do evento"
+      }
+    ]
+  },
+  
+  "cupons_desconto": [
+    {
+      "codigo": "VERAO2025",
+      "tipo_desconto": "percentual",
+      "valor_desconto": 0.10,
+      "data_validade_inicio": "2024-11-01T00:00:00",
+      "data_validade_fim": "2025-12-31T23:59:59",
+      "aplicacao": "total",
+      "descricao": "10% de desconto no valor total",
+      "ativo": true
+    },
+    {
+      "codigo": "EVENTODESC50",
+      "tipo_desconto": "fixo",
+      "valor_desconto": 50.00,
+      "data_validade_inicio": "2024-11-01T00:00:00",
+      "data_validade_fim": "2025-11-30T23:59:59",
+      "aplicacao": "evento",
+      "descricao": "R$ 50,00 de desconto no valor do evento",
+      "ativo": true
+    },
+    {
+      "codigo": "HOSPEDAGEM100",
+      "tipo_desconto": "fixo",
+      "valor_desconto": 100.00,
+      "data_validade_inicio": "2024-11-01T00:00:00",
+      "data_validade_fim": "2025-01-10T23:59:59",
+      "aplicacao": "hospedagem",
+      "descricao": "R$ 100,00 de desconto na hospedagem",
+      "ativo": true
+    },
+    {
+      "codigo": "PRIMEIRACOMPRA",
+      "tipo_desconto": "percentual",
+      "valor_desconto": 0.15,
+      "data_validade_inicio": "2024-11-01T00:00:00",
+      "data_validade_fim": "2025-12-31T23:59:59",
+      "aplicacao": "total",
+      "descricao": "15% de desconto para primeira compra",
+      "ativo": true,
+      "uso_unico_por_cpf": true
+    }
+  ],
+  
+  "confirmacao": {
+    "mensagem_sucesso": "Sua reserva na Fazenda Serrinha foi confirmada!",
+    "instrucoes_gerais": "Você receberá um e-mail com todos os detalhes da sua reserva e instruções de pagamento.",
+    "email_confirmacao": {
+      "habilitado": true,
+      "remetente": "reservas@fazendaserrinha.com.br",
+      "assunto": "Confirmação de Reserva - Retiro Fazenda Serrinha"
+    }
+  },
+  
+  "integracao": {
+    "webhook_url": "https://criadordigital-n8n-webhook.kttqgl.easypanel.host/webhook/fazenda-serrinha-retiro",
+    "webhook_timeout": 15000,
+    "webhook_retry": 2,
+    "campos_extras": {
+      "origem": "formulario_web",
+      "campanha": "retiro_verao_2025",
+      "tipo_reserva": "retiro"
+    }
+  },
+  
+  "termos": {
+    "texto": "1. A confirmação da reserva está sujeita ao pagamento do sinal.\n2. Cancelamentos seguem a política descrita na forma de pagamento escolhida.\n3. Crianças devem estar acompanhadas de responsável maior de 18 anos.\n4. A Fazenda Serrinha se reserva o direito de alterar a programação por motivos de força maior.",
+    "url_completa": "https://www.fazendaserrinha.com.br/termos-reserva",
+    "obrigatorio": true
+  },
+  
+  "seo": {
+    "title": "Reserva - Retiro de Verão 2025 | Fazenda Serrinha",
+    "description": "Reserve sua vaga no Retiro de Verão 2025 na Fazenda Serrinha. Conexão com a natureza, atividades transformadoras e muito mais.",
+    "keywords": "retiro, fazenda serrinha, verão 2025, hospedagem, natureza, yoga, meditação",
+    "og_image": "https://res.cloudinary.com/exemplo/banner-retiro-2025.jpg"
+  }
+}
