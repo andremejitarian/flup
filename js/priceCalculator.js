@@ -1,315 +1,421 @@
 // ============================================
-// PRICE CALCULATOR - Motor de Cálculo de Preços
+// PRICE CALCULATOR - Sistema de Cálculo Dinâmico
 // ============================================
 
 class PriceCalculator {
     constructor(eventConfig) {
         this.config = eventConfig;
         this.participants = [];
-        this.cupomAplicado = null;
-        this.formaPagamentoSelecionada = null;
+        this.appliedCoupon = null;
+        this.selectedPaymentMethod = null;
+        
+        // Verificar se pagamento está habilitado
+        
+        console.log('💰 Calculador de preços inicializado', {
+            paymentEnabled: this.paymentEnabled,
+            ageRulesEnabled: this.ageRulesEnabled
+        });
     }
 
     // ========== CÁLCULO DE IDADE ==========
-    calcularIdade(dataNascimento) {
-        if (!dataNascimento) return null;
+    calculateAge(birthDate) {
+        if (!birthDate) return null;
         
-        const hoje = new Date();
-        const nascimento = new Date(dataNascimento + 'T00:00:00');
-        let idade = hoje.getFullYear() - nascimento.getFullYear();
-        const mes = hoje.getMonth() - nascimento.getMonth();
+        const today = new Date();
+        const birth = new Date(birthDate);
+        let age = today.getFullYear() - birth.getFullYear();
+        const monthDiff = today.getMonth() - birth.getMonth();
         
-            idade--;
+            age--;
         }
         
-        return idade;
+        return age;
     }
 
-    // ========== APLICAR REGRAS DE IDADE ==========
-    aplicarRegraIdade(idade, tipo, contadorGratuidade) {
-        if (!this.config.regras_idade_precificacao.habilitado) {
-            return { percentual: 1.0, descricao: 'Valor integral', gratuito: false };
+    // ========== REGRAS DE IDADE ==========
+    getAgeRule(age, type) {
+            return { percentual_valor_adulto: 1.0 };
         }
         
         
-        for (const regra of regras) {
-            const min = regra.faixa_min_anos;
+        for (let rule of rules) {
+            const minAge = rule.faixa_min_anos;
+            const maxAge = rule.faixa_max_anos !== undefined ? rule.faixa_max_anos : Infinity;
             
-            if (idade >= min && idade <= max) {
-                // Verificar gratuidade
-                if (regra.percentual_valor_adulto === 0) {
-                    if (regra.limite_gratuidade_por_reserva && 
-                        contadorGratuidade < regra.limite_gratuidade_por_reserva) {
-                        return {
-                            percentual: 0,
-                            gratuito: true,
-                            incrementar_contador: true
-                        };
-                    } else if (regra.regra_excedente_gratuito) {
-                        return {
-                            percentual: regra.regra_excedente_gratuito.percentual_valor_adulto,
-                            descricao: regra.regra_excedente_gratuito.descricao,
-                            gratuito: false
-                        };
-                    }
-                }
-                
-                return {
-                    percentual: regra.percentual_valor_adulto,
-                    gratuito: false
-                };
+            if (age >= minAge && age <= maxAge) {
+                return rule;
             }
         }
         
-        // Padrão: valor integral
-        return { percentual: 1.0, descricao: 'Valor integral', gratuito: false };
+        // Se não encontrar regra específica, retorna valor integral
+        return { percentual_valor_adulto: 1.0 };
     }
 
-    // ========== CALCULAR VALOR PARTICIPANTE ==========
-    calcularValorParticipante(participante, contadorGratuidadeHospedagem, contadorGratuidadeEvento) {
-        const idade = this.calcularIdade(participante.data_nascimento);
+    // Obter participantes elegíveis para gratuidade ordenados
+    getEligibleFreeParticipants(type) {
+        const eligibleParticipants = [];
         
-        let valorHospedagem = 0;
-        let valorEvento = 0;
-        let detalhesHospedagem = null;
-        let detalhesEvento = null;
-        
-        // HOSPEDAGEM
-        if (participante.periodo_estadia && participante.acomodacao) {
-            const periodo = this.config.modalidades.periodos_estadia.find(p => p.id === participante.periodo_estadia);
-            const acomodacao = this.config.modalidades.acomodacoes.find(a => a.id === participante.acomodacao);
+        this.participants.forEach((participant, index) => {
+            if (!participant.birthDate) return;
             
-            if (periodo && acomodacao) {
+            const age = this.calculateAge(participant.birthDate);
+            if (age === null) return;
+            
+            const ageRule = this.getAgeRule(age, type);
+            
+            // Verificar se está na faixa de gratuidade
+            if (ageRule.percentual_valor_adulto === 0 && ageRule.limite_gratuidade_por_reserva) {
+                const minAge = ageRule.faixa_min_anos;
+                const maxAge = ageRule.faixa_max_anos !== undefined ? ageRule.faixa_max_anos : Infinity;
                 
-                if (idade !== null) {
-                    const regra = this.aplicarRegraIdade(idade, 'hospedagem', contadorGratuidadeHospedagem);
-                    valorHospedagem = valorBase * regra.percentual;
-                    detalhesHospedagem = {
-                        valor_base: valorBase,
-                        percentual: regra.percentual,
-                        descricao: regra.descricao,
-                        gratuito: regra.gratuito
-                    };
-                    
-                    if (regra.incrementar_contador) {
-                        contadorGratuidadeHospedagem++;
-                    }
-                } else {
-                    valorHospedagem = valorBase;
-                    detalhesHospedagem = {
-                        valor_base: valorBase,
-                        percentual: 1.0,
-                        descricao: 'Valor integral',
-                        gratuito: false
-                    };
+                if (age >= minAge && age <= maxAge) {
+                    eligibleParticipants.push({
+                        participant,
+                        index,
+                        age,
+                        ageRule
+                    });
                 }
             }
-        }
-        
-        // EVENTO
-        if (participante.opcao_evento) {
-            const opcaoEvento = this.config.modalidades.opcoes.find(o => o.id === participante.opcao_evento);
-            
-            if (opcaoEvento && !opcaoEvento.gratuito) {
-                const valorBase = opcaoEvento.valor;
-                
-                if (idade !== null) {
-                    const regra = this.aplicarRegraIdade(idade, 'evento', contadorGratuidadeEvento);
-                    valorEvento = valorBase * regra.percentual;
-                    detalhesEvento = {
-                        valor_base: valorBase,
-                        percentual: regra.percentual,
-                        descricao: regra.descricao,
-                        gratuito: regra.gratuito
-                    };
-                    
-                    if (regra.incrementar_contador) {
-                        contadorGratuidadeEvento++;
-                    }
-                } else {
-                    valorEvento = valorBase;
-                    detalhesEvento = {
-                        valor_base: valorBase,
-                        percentual: 1.0,
-                        descricao: 'Valor integral',
-                        gratuito: false
-                    };
-                }
-            }
-        }
-        
-        return {
-            valorHospedagem,
-            valorEvento,
-            valorTotal: valorHospedagem + valorEvento,
-            detalhesHospedagem,
-            detalhesEvento,
-            idade,
-            contadorGratuidadeHospedagem,
-            contadorGratuidadeEvento
-        };
-    }
-
-    // ========== CALCULAR TOTAL GERAL ==========
-    calcularTotalGeral(participantes) {
-        let totalHospedagem = 0;
-        let totalEvento = 0;
-        let contadorGratuidadeHospedagem = 0;
-        let contadorGratuidadeEvento = 0;
-        
-        const detalhesParticipantes = [];
-        
-        participantes.forEach(participante => {
-            const calculo = this.calcularValorParticipante(
-                participante,
-                contadorGratuidadeHospedagem,
-                contadorGratuidadeEvento
-            );
-            
-            totalHospedagem += calculo.valorHospedagem;
-            totalEvento += calculo.valorEvento;
-            contadorGratuidadeHospedagem = calculo.contadorGratuidadeHospedagem;
-            contadorGratuidadeEvento = calculo.contadorGratuidadeEvento;
-            
-            detalhesParticipantes.push({
-                nome: participante.nome_completo,
-                idade: calculo.idade,
-                valorHospedagem: calculo.valorHospedagem,
-                valorEvento: calculo.valorEvento,
-                valorTotal: calculo.valorTotal,
-                detalhesHospedagem: calculo.detalhesHospedagem,
-                detalhesEvento: calculo.detalhesEvento
-            });
         });
         
-        const subtotal = totalHospedagem + totalEvento;
-        
-        return {
-            totalHospedagem,
-            totalEvento,
-            subtotal,
-            detalhesParticipantes
-        };
+        // Ordenar por ordem de inserção (primeiro a ser inserido tem prioridade)
+        return eligibleParticipants.sort((a, b) => a.index - b.index);
     }
 
-    // ========== VALIDAR E APLICAR CUPOM ==========
-    validarCupom(codigoCupom, subtotal) {
-        if (!this.config.cupons_desconto.habilitado) {
-            return { valido: false, erro: 'Sistema de cupons desabilitado' };
+    // Verificar se participante específico é elegível para gratuidade
+    isEligibleForFree(participantData, type) {
+        
+        const age = this.calculateAge(participantData.birthDate);
+        if (age === null) return false;
+        
+        const ageRule = this.getAgeRule(age, type);
+        
+            return false;
         }
         
-        const cupom = this.config.cupons_desconto.cupons.find(
-            c => c.codigo.toUpperCase() === codigoCupom.toUpperCase() && c.ativo
+        // Obter todos os participantes elegíveis para gratuidade
+        const eligibleParticipants = this.getEligibleFreeParticipants(type);
+        
+        // Encontrar a posição deste participante na lista ordenada
+        const participantIndex = eligibleParticipants.findIndex(ep => 
+            ep.participant.id === participantData.id
         );
         
-        if (!cupom) {
-            return { valido: false, erro: 'Cupom inválido ou expirado' };
-        }
+        if (participantIndex === -1) return false;
         
-        // Validar data
-        const agora = new Date();
-        const dataInicio = new Date(cupom.data_validade_inicio);
-        const dataFim = new Date(cupom.data_validade_fim);
-        
-            return { valido: false, erro: 'Cupom fora do período de validade' };
-        }
-        
-        // Calcular desconto
-        let valorDesconto = 0;
-        
-        if (cupom.tipo_desconto === 'percentual') {
-            valorDesconto = subtotal * cupom.valor_desconto;
-        } else if (cupom.tipo_desconto === 'fixo') {
-            valorDesconto = cupom.valor_desconto;
-        }
-        
-        // Não permitir desconto maior que o subtotal
-        valorDesconto = Math.min(valorDesconto, subtotal);
-        
-        this.cupomAplicado = {
-            codigo: cupom.codigo,
-            descricao: cupom.descricao,
-            valorDesconto,
-            aplicacao: cupom.aplicacao
-        };
-        
-        return {
-            valido: true,
-            cupom: this.cupomAplicado
-        };
+        // Verificar se está dentro do limite de gratuidade
+        return participantIndex < ageRule.limite_gratuidade_por_reserva;
     }
 
-    // ========== CALCULAR TAXA DE GATEWAY ==========
-    calcularTaxaGateway(valorTotal) {
-        if (!this.formaPagamentoSelecionada) return 0;
+    // Verificar se deve aplicar regra de excedente
+    shouldApplyExcessRule(participantData, type) {
         
-        const formaPagamento = this.config.pagamento.formas_pagamento_opcoes.find(
-            f => f.id === this.formaPagamentoSelecionada
+        const age = this.calculateAge(participantData.birthDate);
+        if (age === null) return false;
+        
+        const ageRule = this.getAgeRule(age, type);
+        
+        // Verificar se tem regra de excedente e se está na faixa de idade original
+            return false;
+        }
+        
+        // Obter todos os participantes elegíveis para gratuidade
+        const eligibleParticipants = this.getEligibleFreeParticipants(type);
+        
+        // Encontrar a posição deste participante na lista ordenada
+        const participantIndex = eligibleParticipants.findIndex(ep => 
+            ep.participant.id === participantData.id
         );
         
-        if (!formaPagamento) return 0;
+        if (participantIndex === -1) return false;
         
+        // Verificar se está FORA do limite de gratuidade (excedente)
+        return participantIndex >= ageRule.limite_gratuidade_por_reserva;
     }
 
-    // ========== CALCULAR DESCONTO FORMA DE PAGAMENTO ==========
-    calcularDescontoFormaPagamento(valorTotal) {
-        if (!this.formaPagamentoSelecionada) return 0;
-        
-        const formaPagamento = this.config.pagamento.formas_pagamento_opcoes.find(
-            f => f.id === this.formaPagamentoSelecionada
-        );
-        
-        
-        return valorTotal * formaPagamento.desconto_percentual;
-    }
+    // ========== CÁLCULO DE HOSPEDAGEM ==========
+    calculateLodgingValue(participantData) {
+            return 0;
+        }
 
-    // ========== CALCULAR TOTAL FINAL ==========
-    calcularTotalFinal(participantes, formaPagamentoId = null) {
-        this.formaPagamentoSelecionada = formaPagamentoId;
+        const periodo = this.config.periodos_estadia_opcoes?.find(p => p.id === participantData.stayPeriod);
+        const acomodacao = this.config.tipos_acomodacao?.find(a => a.id === participantData.accommodation);
         
-        const totais = this.calcularTotalGeral(participantes);
-        let { subtotal } = totais;
+
+        const baseValue = acomodacao.valor_diaria_por_pessoa * periodo.num_diarias;
         
-        // Aplicar desconto de cupom
-        let valorDesconto = 0;
-        if (this.cupomAplicado) {
-            valorDesconto = this.cupomAplicado.valorDesconto;
+        // Se não tem data de nascimento ou regras de idade desabilitadas, retorna valor base
+            return this.applyGatewayFee(baseValue);
         }
         
-        // Aplicar desconto de forma de pagamento
-        const descontoFormaPagamento = this.calcularDescontoFormaPagamento(subtotal);
+        const age = this.calculateAge(participantData.birthDate);
+        if (age === null) {
+            return this.applyGatewayFee(baseValue);
+        }
         
-        // Subtotal após descontos
-        const subtotalComDescontos = subtotal - valorDesconto - descontoFormaPagamento;
+        const ageRule = this.getAgeRule(age, 'hospedagem');
         
-        // Taxa de gateway
-        const taxaGateway = this.calcularTaxaGateway(subtotalComDescontos);
+        // Verificar gratuidade primeiro
+        if (this.isEligibleForFree(participantData, 'hospedagem')) {
+            return 0;
+        }
         
-        // Total final
-        const totalFinal = subtotalComDescontos + taxaGateway;
+        // Verificar regra de excedente
+        if (this.shouldApplyExcessRule(participantData, 'hospedagem')) {
+            const finalValue = baseValue * ageRule.regra_excedente_gratuito.percentual_valor_adulto;
+            return this.applyGatewayFee(finalValue);
+        }
+
+        // Aplicar percentual normal da regra de idade
+        const finalValue = baseValue * ageRule.percentual_valor_adulto;
+        return this.applyGatewayFee(finalValue);
+    }
+
+    // ========== CÁLCULO DE EVENTO ==========
+    calculateEventValue(participantData) {
+        if (!participantData.eventOption) {
+            return 0;
+        }
+
+        let eventOption = null;
+
+        // Buscar opção de evento baseada no tipo de formulário
+        if (this.config.modalidades.tipo_formulario === 'evento_apenas') {
+            eventOption = this.config.valores_evento_opcoes?.find(e => e.id === participantData.eventOption);
+        } else if (this.config.modalidades.tipo_formulario === 'hospedagem_e_evento' && participantData.stayPeriod) {
+            const periodo = this.config.periodos_estadia_opcoes?.find(p => p.id === participantData.stayPeriod);
+            if (periodo && periodo.valores_evento_opcoes) {
+                eventOption = periodo.valores_evento_opcoes.find(e => e.id === participantData.eventOption);
+            }
+        }
+
+        if (!eventOption) return 0;
+
+        const baseValue = eventOption.valor;
         
-        return {
-            ...totais,
-            valorDesconto,
-            descontoFormaPagamento,
-            taxaGateway,
-            totalFinal,
-            cupomAplicado: this.cupomAplicado
+        // Se não tem data de nascimento ou regras de idade desabilitadas, retorna valor base
+            return this.applyGatewayFee(baseValue);
+        }
+        
+        const age = this.calculateAge(participantData.birthDate);
+        if (age === null) {
+            return this.applyGatewayFee(baseValue);
+        }
+        
+        const ageRule = this.getAgeRule(age, 'evento');
+        
+        // Verificar gratuidade primeiro
+        if (this.isEligibleForFree(participantData, 'evento')) {
+            return 0;
+        }
+        
+        // Verificar regra de excedente
+        if (this.shouldApplyExcessRule(participantData, 'evento')) {
+            const finalValue = baseValue * ageRule.regra_excedente_gratuito.percentual_valor_adulto;
+            return this.applyGatewayFee(finalValue);
+        }
+
+        // Aplicar percentual normal da regra de idade
+        const finalValue = baseValue * ageRule.percentual_valor_adulto;
+        return this.applyGatewayFee(finalValue);
+    }
+
+    // ========== TAXA DE GATEWAY ==========
+    applyGatewayFee(value) {
+            return Math.round(value * 100) / 100;
+        }
+        
+        const finalValue = value * (1 + this.selectedPaymentMethod.taxa_gateway_percentual);
+        return Math.round(finalValue * 100) / 100;
+    }
+
+    // ========== SUBTOTAIS ==========
+    calculateLodgingSubtotal() {
+        return this.participants.reduce((total, participant) => {
+            return total + this.calculateLodgingValue(participant);
+        }, 0);
+    }
+
+    calculateEventSubtotal() {
+        return this.participants.reduce((total, participant) => {
+            return total + this.calculateEventValue(participant);
+        }, 0);
+    }
+
+    // ========== CUPONS DE DESCONTO ==========
+    calculateCouponDiscount() {
+        if (!this.appliedCoupon) return 0;
+
+        const lodgingSubtotal = this.calculateLodgingSubtotal();
+        const eventSubtotal = this.calculateEventSubtotal();
+        let baseValue = 0;
+
+        // Determinar base de cálculo baseada na aplicação do cupom
+        switch (this.appliedCoupon.aplicacao) {
+            case 'total':
+                baseValue = lodgingSubtotal + eventSubtotal;
+                break;
+            case 'hospedagem':
+                baseValue = lodgingSubtotal;
+                break;
+            case 'evento':
+                baseValue = eventSubtotal;
+                break;
+            default:
+                baseValue = lodgingSubtotal + eventSubtotal;
+        }
+
+        let discount = 0;
+
+        if (this.appliedCoupon.tipo_desconto === 'percentual') {
+            discount = baseValue * this.appliedCoupon.valor_desconto;
+        } else if (this.appliedCoupon.tipo_desconto === 'fixo') {
+            discount = Math.min(this.appliedCoupon.valor_desconto, baseValue);
+        }
+
+        return Math.round(discount * 100) / 100;
+    }
+
+    // Validar cupom
+    validateCoupon(couponCode) {
+            return { valid: false, message: '' };
+        }
+
+        const coupon = coupons.find(c => 
+            c.codigo.toUpperCase() === couponCode.toUpperCase() && c.ativo !== false
+        );
+
+        if (!coupon) {
+            return { valid: false, message: 'Cupom não encontrado' };
+        }
+
+        // Verificar validade
+        const now = new Date();
+        const validFrom = coupon.data_validade_inicio ? new Date(coupon.data_validade_inicio) : null;
+        const validUntil = new Date(coupon.data_validade_fim);
+
+        if (validFrom && now < validFrom) {
+            return { valid: false, message: 'Cupom ainda não está válido' };
+        }
+
+        if (now > validUntil) {
+            return { valid: false, message: 'Cupom expirado' };
+        }
+
+        return { 
+            valid: true, 
+            coupon: coupon,
+            message: `Desconto aplicado: ${this.formatCouponDiscount(coupon)}`
         };
     }
 
-    // ========== FORMATAR MOEDA ==========
-    formatarMoeda(valor) {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-        }).format(valor);
+    // Formatar desconto do cupom para exibição
+    formatCouponDiscount(coupon) {
+        if (coupon.tipo_desconto === 'percentual') {
+            return `${(coupon.valor_desconto * 100).toFixed(0)}%`;
+        } else {
+            return `R$ ${coupon.valor_desconto.toFixed(2).replace('.', ',')}`;
+        }
+    }
+
+    // ========== TOTAL FINAL ==========
+    calculateFinalTotal() {
+        const lodgingSubtotal = this.calculateLodgingSubtotal();
+        const eventSubtotal = this.calculateEventSubtotal();
+        const discount = this.calculateCouponDiscount();
+        
+        const total = lodgingSubtotal + eventSubtotal - discount;
+        return Math.max(0, Math.round(total * 100) / 100);
+    }
+
+    // ========== MÉTODOS PÚBLICOS ==========
+    updateParticipants(participantsData) {
+        this.participants = participantsData;
+    }
+
+    setCoupon(coupon) {
+        this.appliedCoupon = coupon;
+    }
+
+    removeCoupon() {
+        this.appliedCoupon = null;
+    }
+
+    setPaymentMethod(paymentMethod) {
+        this.selectedPaymentMethod = paymentMethod;
+    }
+
+    formatCurrency(value) {
+        return `R$ ${value.toFixed(2).replace('.', ',')}`;
+    }
+
+    // Obter resumo completo dos cálculos
+    getCalculationSummary() {
+        const lodgingSubtotal = this.calculateLodgingSubtotal();
+        const eventSubtotal = this.calculateEventSubtotal();
+        const discount = this.calculateCouponDiscount();
+        const finalTotal = this.calculateFinalTotal();
+
+        return {
+            lodgingSubtotal,
+            eventSubtotal,
+            discount,
+            finalTotal,
+            formatted: {
+                lodgingSubtotal: this.formatCurrency(lodgingSubtotal),
+                eventSubtotal: this.formatCurrency(eventSubtotal),
+                discount: this.formatCurrency(discount),
+                finalTotal: this.formatCurrency(finalTotal)
+            },
+            paymentMethod: this.selectedPaymentMethod,
+            coupon: this.appliedCoupon
+        };
+    }
+
+    // Obter detalhes de um participante específico
+    getParticipantDetails(participantData) {
+        const lodgingValue = this.calculateLodgingValue(participantData);
+        const eventValue = this.calculateEventValue(participantData);
+        const age = this.calculateAge(participantData.birthDate);
+        
+        let ageInfo = null;
+        if (age !== null && this.ageRulesEnabled) {
+            const lodgingRule = this.getAgeRule(age, 'hospedagem');
+            const eventRule = this.getAgeRule(age, 'evento');
+            
+            ageInfo = {
+                age,
+                lodgingRule,
+                eventRule,
+                isFreeForLodging: this.isEligibleForFree(participantData, 'hospedagem'),
+                isFreeForEvent: this.isEligibleForFree(participantData, 'evento'),
+                isExcessForLodging: this.shouldApplyExcessRule(participantData, 'hospedagem'),
+                isExcessForEvent: this.shouldApplyExcessRule(participantData, 'evento')
+            };
+        }
+
+        return {
+            lodgingValue,
+            eventValue,
+            totalValue: lodgingValue + eventValue,
+            ageInfo,
+            formatted: {
+                lodgingValue: this.formatCurrency(lodgingValue),
+                eventValue: this.formatCurrency(eventValue),
+                totalValue: this.formatCurrency(lodgingValue + eventValue)
+            }
+        };
     }
 }
 
-// Instância global
+// Instância global do calculador
 let priceCalculator = null;
 
+// Inicializar calculador quando evento for carregado
 function initializePriceCalculator(eventConfig) {
     priceCalculator = new PriceCalculator(eventConfig);
-    console.log('💰 Calculadora de preços inicializada');
+    window.priceCalculator = priceCalculator; // Disponibilizar globalmente
+    console.log('✅ Calculador de preços inicializado');
+    return priceCalculator;
 }
