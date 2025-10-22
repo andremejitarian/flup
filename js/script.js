@@ -659,3 +659,67 @@ function showErrorState(message) {
     $('.loading-state').hide();
     $('.error-state').show().find('p').text(message);
 }
+
+// ========== VALIDAÇÃO DE CUPOM ==========
+$('#coupon-code').on('blur', function() {
+    const codigoCupom = $(this).val().trim().toUpperCase();
+    
+    if (!codigoCupom) {
+        $('#coupon-feedback').text('').removeClass('success-message error-message');
+        $(this).removeClass('success error');
+        return;
+    }
+    
+    if (!priceCalculator) {
+        $('#coupon-feedback').text('Sistema de cupons não disponível').addClass('error-message');
+        return;
+    }
+    
+    const totais = priceCalculator.calcularTotalGeral(getAllParticipantsData());
+    const resultado = priceCalculator.validarCupom(codigoCupom, totais.subtotal);
+    
+    if (resultado.valido) {
+        $(this).addClass('success').removeClass('error');
+        $('#coupon-feedback')
+            .text(`✅ ${resultado.cupom.descricao} aplicado! Desconto: ${priceCalculator.formatarMoeda(resultado.cupom.valorDesconto)}`)
+            .addClass('success-message')
+            .removeClass('error-message');
+        
+        // Recalcular totais
+        recalcularTotais();
+    } else {
+        $(this).addClass('error').removeClass('success');
+        $('#coupon-feedback')
+            .text(`❌ ${resultado.erro}`)
+            .addClass('error-message')
+            .removeClass('success-message');
+        
+        priceCalculator.cupomAplicado = null;
+        recalcularTotais();
+    }
+});
+
+// ========== RECALCULAR TOTAIS ==========
+function recalcularTotais() {
+    if (!priceCalculator) return;
+    
+    const participantes = getAllParticipantsData();
+    const formaPagamento = $('#payment-method').val();
+    
+    const totais = priceCalculator.calcularTotalFinal(participantes, formaPagamento);
+    
+    // Atualizar interface
+    $('#subtotal-hospedagem').text(priceCalculator.formatarMoeda(totais.totalHospedagem));
+    $('#subtotal-evento').text(priceCalculator.formatarMoeda(totais.totalEvento));
+    
+    if (totais.valorDesconto > 0) {
+        $('#discount-line').show();
+        $('#discount-value').text(`-${priceCalculator.formatarMoeda(totais.valorDesconto)}`);
+    } else {
+        $('#discount-line').hide();
+    }
+    
+    $('#final-total').text(priceCalculator.formatarMoeda(totais.totalFinal));
+    
+    console.log('💰 Totais recalculados:', totais);
+}
