@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição – Palestra Inaugural | Goethe-Institut</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery Mask CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+</head>
+<body>
+    <!-- Banner Header -->
+    <div class="header-banner" style="background-image: url('https://via.placeholder.com/1920x280/FF8C42/FFFFFF?text=Goethe-Institut+Rio+de+Janeiro');">
+    </div>
+
+    <!-- Container Principal -->
+    <div class="container">
+        <div class="form-card">
+            <!-- Logo Container com Parceria -->
+            <div class="logo-container">
+                <img src="https://via.placeholder.com/110/2C5530/FFFFFF?text=FLUP" alt="Logo Flup" class="partner-logo logo-main">
+                <img src="https://via.placeholder.com/110/2C5530/FFFFFF?text=GI" alt="Logo Goethe-Institut" class="partner-logo logo-partner">
+            </div>
+            
+            <!-- Tela 1: Boas-vindas -->
+            <div class="form-content" id="step-1">
+                <div class="welcome-section">
+                    <h1>PALESTRA INAUGURAL</h1>
+                    <p><strong>A Diáspora Africana na Alemanha:</strong><br>
+                    Movimentos Históricos e Novas Perspectivas através da Literatura</p>
+                    
+                    <p style="margin-top: 25px; font-size: 1.05em;">
+                        <strong>📅 Data:</strong> 16 de Outubro<br>
+                        <strong>☕ Café da Manhã:</strong> 9h00<br>
+                        <strong>🎤 Palestra:</strong> 10h00 – 11h30<br>
+                        <strong>📍 Local:</strong> Biblioteca do Goethe-Institut Rio de Janeiro<br>
+                        <strong>👩‍🏫 Com:</strong> Profa. Dra. Jess Oliveira
+                    </p>
+                    
+                    <p class="observations" style="margin-top: 20px;">
+                        🤝 Parceria: Festa Literária das Periferias (Flup)<br>
+                        Parte da oficina "Encruzilhadas da Diáspora: Tradução como Travessia e Criação"
+                    </p>
+                </div>
+
+                <!-- Botão Avançar -->
+                <button class="btn btn-primary btn-advance" id="start-form-btn">
+                    Fazer Inscrição
+                </button>
+            </div>
+
+            <!-- Tela 2: Dados do Participante -->
+            <div class="form-content" id="step-2" style="display: none;">
+                <h2 class="section-title">Dados do Participante</h2>
+                
+                <div class="participant-form">
+                    <!-- Nome Completo -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome Completo: <span style="color: red;">*</span></label>
+                            <input type="text" id="full-name" class="form-control" required placeholder="Digite seu nome completo">
+                        </div>
+                    </div>
+
+                    <!-- E-mail e Telefone -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>E-mail: <span style="color: red;">*</span></label>
+                            <input type="email" id="email" class="form-control email-input" required placeholder="seu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Telefone: <span style="color: red;">*</span></label>
+                            <div class="phone-input-container">
+                                <select id="country-code" class="form-control country-select">
+                                    <option value="+55" data-country="BR" selected>🇧🇷 +55</option>
+                                    <option value="+1" data-country="US">🇺🇸 +1</option>
+                                    <option value="+351" data-country="PT">🇵🇹 +351</option>
+                                    <option value="+49" data-country="DE">🇩🇪 +49</option>
+                                    <option value="+34" data-country="ES">🇪🇸 +34</option>
+                                    <option value="+33" data-country="FR">🇫🇷 +33</option>
+                                </select>
+                                <input type="text" id="phone" class="form-control phone-input" required placeholder="Digite o telefone">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CPF e Data de Nascimento (Opcionais) -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>CPF (opcional):</label>
+                            <input type="text" id="cpf" class="form-control cpf-mask" placeholder="000.000.000-00">
+                            <p class="feedback-message cpf-feedback"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>Data de Nascimento (opcional):</label>
+                            <input type="date" id="dob" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Gênero (Opcional) -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Gênero (opcional):</label>
+                            <select id="gender" class="form-control gender-select">
+                                <option value="">Selecione o gênero</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                                <option value="nao-binario">Não-binário</option>
+                                <option value="prefiro-nao-informar">Prefiro não informar</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <!-- Espaço vazio para manter o grid -->
+                        </div>
+                    </div>
+
+                    <!-- Seção de Modalidade de Participação -->
+                    <div class="section-divider">
+                        <h4>🎯 MODALIDADE DE PARTICIPAÇÃO</h4>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Como você deseja participar? <span style="color: red;">*</span></label>
+                        <select id="participation-mode" class="form-control" required>
+                            <option value="">Selecione a modalidade</option>
+                            <option value="presencial">🏛️ Presencial – Biblioteca do Goethe-Institut (Entrada Livre)</option>
+                            <option value="online">💻 Online – Via Zoom (Link será enviado por e-mail)</option>
+                        </select>
+                        <p class="info-text" style="margin-top: 10px;">
+                            <strong>Presencial:</strong> Café da manhã às 9h, palestra às 10h.<br>
+                            <strong>Online:</strong> O link do Zoom será enviado 1 dia antes do evento.
+                        </p>
+                    </div>
+
+                    <!-- Interesse na Oficina Completa -->
+                    <div class="section-divider">
+                        <h4>📚 INTERESSE ADICIONAL</h4>
+                    </div>
+
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="workshop-interest">
+                        <span class="checkmark"></span>
+                        <span class="checkbox-text">Tenho interesse em receber informações sobre a oficina completa "Encruzilhadas da Diáspora: Tradução como Travessia e Criação"</span>
+                    </label>
+                </div>
+                
+                <div class="navigation-buttons">
+                    <button class="btn btn-secondary back-btn">Voltar</button>
+                    <button class="btn btn-primary next-btn">Próximo</button>
+                </div>
+            </div>
+
+            <!-- Tela 3: Resumo e Confirmação -->
+            <div class="form-content" id="step-3" style="display: none;">
+                <h2 class="section-title">Resumo da Inscrição</h2>
+                
+                <div id="summary-content">
+                    <!-- Resumo será preenchido via JavaScript -->
+                </div>
+
+                <!-- Termos e Condições -->
+                <div class="terms-section">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="terms-conditions" required>
+                        <span class="checkmark"></span>
+                        <span class="checkbox-text">Li e concordo com os <a href="#" id="terms-link">Termos e Condições</a> e autorizo o uso dos meus dados para comunicação sobre o evento</span>
+                    </label>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="btn btn-secondary back-btn">Voltar</button>
+                    <button class="btn btn-primary submit-btn">Confirmar Inscrição</button>
+                </div>
+            </div>
+
+            <!-- Tela 4: Confirmação -->
+            <div class="form-content" id="step-4" style="display: none;">
+                <div class="success-container">
+                    <div class="success-icon">✅</div>
+                    <h2>INSCRIÇÃO CONFIRMADA!</h2>
+                    
+                    <div class="confirmation-card">
+                        <p>Sua inscrição para a Palestra Inaugural foi realizada com sucesso!</p>
+                        
+                        <div class="confirmation-details">
+                            <div class="detail-item">
+                                <span class="label">📄 ID da Inscrição:</span>
+                                <span class="value" id="confirmation-id">#GI2024000000</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">👤 Nome:</span>
+                                <span class="value" id="confirmation-name">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">📧 E-mail:</span>
+                                <span class="value" id="confirmation-email">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">🎯 Modalidade:</span>
+                                <span class="value" id="confirmation-mode">-</span>
+                            </div>
+                        </div>
+                        
+                        <p class="payment-instruction" id="online-instruction" style="display: none;">
+                            📧 O link do Zoom será enviado para o seu e-mail 1 dia antes do evento.
+                        </p>
+                        <p class="payment-instruction" id="presencial-instruction" style="display: none;">
+                            🏛️ Nos vemos no dia 16 de outubro às 9h para o café da manhã!<br>
+                            <strong>Endereço:</strong> Goethe-Institut Rio de Janeiro
+                        </p>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="location.reload()">
+                        Nova Inscrição
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+</body>
+</html>
