@@ -137,6 +137,24 @@
     }
   },
   
+  "pagamento": {
+    "habilitado": false,
+    "moeda": "BRL",
+    "formas_pagamento_opcoes": [],
+    "exibir_resumo_financeiro": false
+  },
+  
+  "regras_idade_precificacao": {
+    "habilitado": false,
+    "hospedagem": [],
+    "evento": []
+  },
+  
+  "cupons_desconto": {
+    "habilitado": false,
+    "cupons": []
+  },
+  
   "confirmacao": {
     "mensagem_sucesso": "Sua inscrição para a Palestra Inaugural foi realizada com sucesso!",
     "instrucoes_presencial": "🏛️ Nos vemos no dia 16 de outubro às 9h para o café da manhã!\n\n**Endereço:** Goethe-Institut Rio de Janeiro",
