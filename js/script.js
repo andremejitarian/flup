@@ -1,3 +1,28 @@
+
+// ========== INICIALIZAÇÃO COM EVENT LOADER ==========
+$(document).ready(async function() {
+    console.log('🎯 Iniciando formulário dinâmico...');
+    
+    // 1. Carregar configuração do evento
+    const loaded = await initializeEventLoader();
+    
+    if (!loaded) {
+        console.error('❌ Não foi possível carregar o evento');
+        return;
+    }
+    
+    // 2. Inicializar integração com webhook
+    initializeWebhookIntegration();
+    
+    // 3. Aplicar máscaras
+    applyMasks();
+    
+    // 4. Event Listeners
+    setupEventListeners();
+    
+    console.log('✅ Formulário inicializado com sucesso');
+});
+
 // ============================================
 // SCRIPT.JS - SISTEMA DINÂMICO DE EVENTOS
 // Carrega configurações do eventos.json
@@ -501,41 +526,50 @@ function generateSummary() {
 
 // ========== SUBMISSÃO ==========
 async function submitRegistration() {
-    if (submissionInProgress) return;
+    if (submissionInProgress) {
+        console.warn('⚠️ Submissão já em andamento');
+        return;
+    }
     
     submissionInProgress = true;
+    
     const $submitBtn = $('.submit-btn');
     $submitBtn.prop('disabled', true).addClass('loading').text('Enviando...');
     
     try {
         const inscricaoId = generateInscricaoId();
+        const config = eventLoader.getConfig();
         
+        // Preparar dados com configurações do JSON
         const submissionData = {
             inscricao_id: inscricaoId,
-            evento_id: currentEvent.id,
             evento: {
-                nome: currentEvent.informacoes_basicas.titulo,
-                data: currentEvent.data_hora.data,
-                local: currentEvent.localizacao.nome
+                id: config.evento.id,
+                slug: config.evento.slug,
+                nome: config.branding.titulo,
+                data: config.detalhes.data_evento,
+                local: config.detalhes.local.nome,
+                palestrantes: config.detalhes.palestrantes.map(p => p.nome)
             },
             participante: participantData,
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
+            ...config.integracao.campos_extras // Campos extras do JSON
         };
         
-        console.log('📤 Enviando:', submissionData);
+        console.log('📤 Enviando dados:', submissionData);
         
         const result = await webhookIntegration.submitForm(submissionData);
         
         if (result.success) {
-            console.log('✅ Sucesso');
+            console.log('✅ Inscrição enviada com sucesso');
             showConfirmation(inscricaoId);
             goToStep(4);
         } else {
         }
         
     } catch (error) {
-        console.error('❌ Erro:', error);
-        showToast('Erro ao enviar inscrição. Tente novamente.', 'error');
+        console.error('❌ Erro na submissão:', error);
+        showToast('Erro ao enviar inscrição. Por favor, tente novamente.', 'error');
         $submitBtn.prop('disabled', false).removeClass('loading').text('Confirmar Inscrição');
     } finally {
         submissionInProgress = false;
