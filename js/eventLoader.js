@@ -95,42 +95,42 @@ class EventLoader {
 
     // Aplica as configurações no HTML
     applyConfig() {
-        if (!this.config) {
-            console.error('❌ Nenhuma configuração carregada');
-            return;
-        }
-        
-        console.log('🎨 Aplicando configurações no HTML...');
-        
-        // SEO
-        this.applySEO();
-        
-        // Branding
-        this.applyBranding();
-        
-        // Detalhes do evento
-        this.applyEventDetails();
-        
-        // Modalidades
-        this.applyModalidades();
-        
-        // Campos personalizados
-        this.applyCustomFields();
-
-        // Inicializar calculadora de preços
-        if (this.config.pagamento.habilitado) {
-            initializePriceCalculator(this.config);
-            this.applyPaymentMethods();
-        }
-        
-        // Termos
-        this.applyTerms();
-        
-        // Webhook
-        this.configureWebhook();
-        
-        console.log('✅ Configurações aplicadas com sucesso');
+    if (!this.config) {
+        console.error('❌ Nenhuma configuração carregada');
+        return;
     }
+    
+    console.log('🎨 Aplicando configurações no HTML...');
+    
+    // SEO
+    this.applySEO();
+    
+    // Branding
+    this.applyBranding();
+    
+    // Detalhes do evento
+    this.applyEventDetails();
+    
+    // Modalidades
+    this.applyModalidades();
+    
+    // Campos personalizados
+    this.applyCustomFields();
+    
+    // Formas de pagamento (NOVO)
+    this.applyPaymentMethods();
+    
+    // Termos
+    this.applyTerms();
+    
+    // Webhook
+    this.configureWebhook();
+    
+    // Inicializar calculadora de preços (NOVO)
+    initializePriceCalculator(this.config);
+    
+    console.log('✅ Configurações aplicadas com sucesso');
+}
 
     // Aplica SEO
     applySEO() {
