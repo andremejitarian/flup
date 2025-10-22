@@ -116,6 +116,12 @@ class EventLoader {
         
         // Campos personalizados
         this.applyCustomFields();
+
+        // Inicializar calculadora de preços
+        if (this.config.pagamento.habilitado) {
+            initializePriceCalculator(this.config);
+            this.applyPaymentMethods();
+        }
         
         // Termos
         this.applyTerms();
@@ -387,4 +393,38 @@ async function initializeEventLoader() {
         console.error('❌ Falha ao inicializar evento:', error);
         return false;
     }
+}
+
+// Aplica formas de pagamento
+applyPaymentMethods() {
+    const formasPagamento = this.config.pagamento.formas_pagamento_opcoes;
+    
+    const $select = $('#payment-method');
+    $select.empty();
+    $select.append('<option value="">Selecione a forma de pagamento</option>');
+    
+    formasPagamento.forEach(forma => {
+        $select.append(`<option value="${forma.id}">${forma.label}</option>`);
+    });
+    
+    // Atualizar descrição ao selecionar
+    $select.on('change', function() {
+        const formaId = $(this).val();
+        const forma = formasPagamento.find(f => f.id === formaId);
+        
+        if (forma && forma.descricao) {
+            // Exibir política de cancelamento
+            $('#cancellation-policy-section').show();
+            $('#cancellation-policy-section .policy-content').html(forma.descricao);
+        } else {
+            $('#cancellation-policy-section').hide();
+        }
+        
+        // Recalcular totais
+        if (window.recalcularTotais) {
+            window.recalcularTotais();
+        }
+    });
+    
+    console.log('✅ Formas de pagamento aplicadas');
 }
