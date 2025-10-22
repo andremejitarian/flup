@@ -428,3 +428,47 @@ applyPaymentMethods() {
     
     console.log('✅ Formas de pagamento aplicadas');
 }
+
+// Aplicar formas de pagamento
+applyPaymentMethods() {
+    if (!this.config.pagamento?.habilitado) {
+        console.log('⚠️ Pagamento desabilitado para este evento');
+        $('.payment-method-section').hide();
+        $('.coupon-section').hide();
+        $('.totals-summary').hide();
+        return;
+    }
+    
+    const formasPagamento = this.config.pagamento.formas_pagamento_opcoes;
+    
+    const $select = $('#payment-method');
+    $select.empty();
+    $select.append('<option value="">Selecione a forma de pagamento</option>');
+    
+    formasPagamento.forEach(forma => {
+        $select.append(`<option value="${forma.id}" data-forma='${JSON.stringify(forma)}'>${forma.label}</option>`);
+    });
+    
+    // Atualizar política ao selecionar
+    $select.on('change', function() {
+        const selected = $(this).find(':selected');
+        const formaData = selected.data('forma');
+        
+        if (formaData) {
+            // Atualizar política de cancelamento
+            $('#cancellation-policy-section .policy-content').html(formaData.descricao);
+            $('#cancellation-policy-section').show();
+            
+            // Atualizar calculadora de preços
+            if (window.priceCalculator) {
+                priceCalculator.setPaymentMethod(formaData);
+                // Recalcular preços
+                updateAllPrices();
+            }
+        } else {
+            $('#cancellation-policy-section').hide();
+        }
+    });
+    
+    console.log('✅ Formas de pagamento aplicadas');
+}
