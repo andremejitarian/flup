@@ -1,0 +1,260 @@
+{
+  "eventos": {
+    "GOETHE_2024_001": {
+      "id": "GOETHE_2024_001",
+      "ativo": true,
+      "tipo_evento": "palestra_gratuita",
+      
+      "informacoes_basicas": {
+        "titulo": "PALESTRA INAUGURAL",
+        "subtitulo": "A Diáspora Africana na Alemanha: Movimentos Históricos e Novas Perspectivas através da Literatura",
+        "descricao": "No dia 16 de outubro, o Goethe-Institut Rio de Janeiro abre a oficina \"Encruzilhadas da Diáspora: Tradução como Travessia e Criação\" com a palestra inaugural da Profa. Dra. Jess Oliveira.",
+        "observacoes": "🤝 Parceria: Festa Literária das Periferias (Flup)<br>Parte da oficina \"Encruzilhadas da Diáspora: Tradução como Travessia e Criação\"",
+        "palestrante": "Profa. Dra. Jess Oliveira"
+      },
+      
+      "data_hora": {
+        "data": "2024-10-16",
+        "data_formatada": "16 de Outubro",
+        "horarios": [
+          {
+            "tipo": "cafe",
+            "horario": "9h00",
+            "descricao": "☕ Café da Manhã"
+          },
+          {
+            "tipo": "palestra",
+            "horario": "10h00 – 11h30",
+            "descricao": "🎤 Palestra"
+          }
+        ]
+      },
+      
+      "localizacao": {
+        "nome": "Goethe-Institut Rio de Janeiro",
+        "endereco": "Rua Exemplo, 123 - Centro, Rio de Janeiro - RJ",
+        "sala": "Biblioteca",
+        "mapa_url": "https://maps.google.com/?q=Goethe-Institut+Rio"
+      },
+      
+      "modalidades": [
+        {
+          "id": "presencial",
+          "nome": "🏛️ Presencial – Biblioteca do Goethe-Institut",
+          "descricao": "Entrada Livre",
+          "info_adicional": "Café da manhã às 9h, palestra às 10h.",
+          "vagas_limitadas": true,
+          "vagas_totais": 50,
+          "gratuito": true
+        },
+        {
+          "id": "online",
+          "nome": "💻 Online – Via Zoom",
+          "descricao": "Link será enviado por e-mail",
+          "info_adicional": "O link do Zoom será enviado 1 dia antes do evento.",
+          "vagas_limitadas": false,
+          "gratuito": true
+        }
+      ],
+      
+      "campos_formulario": {
+        "obrigatorios": ["nome_completo", "email", "telefone", "modalidade_participacao"],
+        "opcionais": ["cpf", "data_nascimento", "genero"],
+        "customizados": [
+          {
+            "id": "interesse_oficina",
+            "tipo": "checkbox",
+            "label": "Tenho interesse em receber informações sobre a oficina completa \"Encruzilhadas da Diáspora: Tradução como Travessia e Criação\"",
+            "secao": "interesse_adicional"
+          }
+        ]
+      },
+      
+      "visual": {
+        "banner": {
+          "url": "https://res.cloudinary.com/ddjlqajrd/image/upload/v1757067076/goethe_banner.jpg",
+          "alt": "Banner Palestra Goethe-Institut"
+        },
+        "logos": [
+          {
+            "url": "https://via.placeholder.com/110/FF8C42/FFFFFF?text=FLUP",
+            "alt": "Logo Flup",
+            "posicao": "principal",
+            "ordem": 1
+          },
+          {
+            "url": "https://via.placeholder.com/110/2C5530/FFFFFF?text=GI",
+            "alt": "Logo Goethe-Institut",
+            "posicao": "parceiro",
+            "ordem": 2
+          }
+        ],
+        "cores": {
+          "primaria": "#FF8C42",
+          "secundaria": "#2C5530",
+          "destaque": "#FFD700"
+        }
+      },
+      
+      "termos_condicoes": {
+        "url": null,
+        "texto": "Termos e Condições:\n\n1. Os dados fornecidos serão utilizados exclusivamente para comunicação sobre este evento.\n2. Ao se inscrever, você autoriza o Goethe-Institut e a Flup a enviarem informações sobre eventos futuros.\n3. Para participação online, o link do Zoom será enviado 1 dia antes do evento.\n4. A entrada é gratuita e não há cobrança de taxa de inscrição.\n5. Em caso de dúvidas, entre em contato com o Goethe-Institut Rio de Janeiro."
+      },
+      
+      "integracao": {
+        "webhook_url": "https://criadordigital-n8n-webhook.kttqgl.easypanel.host/webhook/5fd5f5c1-6d60-4c4f-a463-cc9b0302afae",
+        "email_confirmacao": true,
+        "email_lembrete": true,
+        "dias_antes_lembrete": 1
+      },
+      
+      "confirmacao": {
+        "mensagem_sucesso": "Sua inscrição para a Palestra Inaugural foi realizada com sucesso!",
+        "instrucoes_presencial": "🏛️ Nos vemos no dia 16 de outubro às 9h para o café da manhã!<br><strong>Endereço:</strong> Goethe-Institut Rio de Janeiro",
+        "instrucoes_online": "📧 O link do Zoom será enviado para o seu e-mail 1 dia antes do evento."
+      }
+    },
+    
+    "FLUP_2024_002": {
+      "id": "FLUP_2024_002",
+      "ativo": true,
+      "tipo_evento": "workshop_pago",
+      
+      "informacoes_basicas": {
+        "titulo": "WORKSHOP DE ESCRITA CRIATIVA",
+        "subtitulo": "Narrativas das Periferias: Técnicas e Vivências",
+        "descricao": "Workshop intensivo de 3 dias sobre técnicas de escrita criativa com foco em narrativas periféricas e representatividade.",
+        "observacoes": "Vagas limitadas! Inscrições até 30 de novembro.",
+        "facilitador": "Escritor João Silva"
+      },
+      
+      "data_hora": {
+        "data": "2024-12-05",
+        "data_formatada": "5 a 7 de Dezembro",
+        "horarios": [
+          {
+            "tipo": "workshop",
+            "horario": "14h00 – 18h00",
+            "descricao": "📝 Workshop (3 dias consecutivos)"
+          }
+        ]
+      },
+      
+      "localizacao": {
+        "nome": "Centro Cultural Flup",
+        "endereco": "Rua das Letras, 456 - Maré, Rio de Janeiro - RJ",
+        "sala": "Sala Multiuso",
+        "mapa_url": "https://maps.google.com/?q=Centro+Cultural+Flup"
+      },
+      
+      "modalidades": [
+        {
+          "id": "presencial",
+          "nome": "🏛️ Presencial – Centro Cultural Flup",
+          "descricao": "Inclui material didático e certificado",
+          "info_adicional": "Vagas limitadas a 20 participantes.",
+          "vagas_limitadas": true,
+          "vagas_totais": 20,
+          "gratuito": false,
+          "preco": 150.00
+        }
+      ],
+      
+      "campos_formulario": {
+        "obrigatorios": ["nome_completo", "email", "telefone", "cpf", "modalidade_participacao"],
+        "opcionais": ["data_nascimento", "genero"],
+        "customizados": [
+          {
+            "id": "experiencia_escrita",
+            "tipo": "select",
+            "label": "Qual sua experiência com escrita criativa?",
+            "opcoes": [
+              {"valor": "iniciante", "texto": "Iniciante"},
+              {"valor": "intermediario", "texto": "Intermediário"},
+              {"valor": "avancado", "texto": "Avançado"}
+            ],
+            "secao": "informacoes_adicionais"
+          },
+          {
+            "id": "motivacao",
+            "tipo": "textarea",
+            "label": "Por que você quer participar deste workshop? (opcional)",
+            "placeholder": "Conte-nos um pouco sobre sua motivação...",
+            "secao": "informacoes_adicionais"
+          }
+        ]
+      },
+      
+      "visual": {
+        "banner": {
+          "url": "https://res.cloudinary.com/ddjlqajrd/image/upload/v1757067076/flup_workshop_banner.jpg",
+          "alt": "Banner Workshop Flup"
+        },
+        "logos": [
+          {
+            "url": "https://via.placeholder.com/110/FF8C42/FFFFFF?text=FLUP",
+            "alt": "Logo Flup",
+            "posicao": "unico",
+            "ordem": 1
+          }
+        ],
+        "cores": {
+          "primaria": "#FF8C42",
+          "secundaria": "#2C5530",
+          "destaque": "#FFD700"
+        }
+      },
+      
+      "pagamento": {
+        "ativo": true,
+        "formas_pagamento": [
+          {
+            "id": "pix",
+            "nome": "PIX",
+            "desconto_percentual": 0,
+            "ativo": true
+          },
+          {
+            "id": "cartao_credito",
+            "nome": "Cartão de Crédito",
+            "desconto_percentual": 0,
+            "ativo": true,
+            "parcelas_max": 3
+          }
+        ],
+        "cupons": [
+          {
+            "codigo": "FLUP10",
+            "desconto_percentual": 10,
+            "valido_ate": "2024-11-30",
+            "ativo": true
+          },
+          {
+            "codigo": "PRIMEIRA",
+            "desconto_percentual": 15,
+            "valido_ate": "2024-11-15",
+            "ativo": true
+          }
+        ]
+      },
+      
+      "termos_condicoes": {
+        "url": "https://flup.org.br/termos-workshop",
+        "texto": null
+      },
+      
+      "integracao": {
+        "webhook_url": "https://criadordigital-n8n-webhook.kttqgl.easypanel.host/webhook/workshop-flup",
+        "email_confirmacao": true,
+        "email_lembrete": true,
+        "dias_antes_lembrete": 2
+      },
+      
+      "confirmacao": {
+        "mensagem_sucesso": "Sua inscrição no Workshop de Escrita Criativa foi confirmada!",
+        "instrucoes_presencial": "🏛️ Nos vemos no dia 5 de dezembro às 14h!<br><strong>Endereço:</strong> Centro Cultural Flup - Rua das Letras, 456",
+        "instrucoes_online": null
+      }
+    }
+  }
+}
