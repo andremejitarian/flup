@@ -1,0 +1,325 @@
+{
+  "evento": {
+    "id": "fs-retiro-2025",
+    "slug": "retiro-fazenda-serrinha-2025",
+    "tipo": "retiro_hospedagem",
+    "status": "ativo",
+    "inscricoes_abertas": true,
+    "data_inicio_inscricoes": "2024-11-01",
+    "data_fim_inscricoes": "2025-01-15",
+    "limite_participantes": 30
+  },
+  
+  "branding": {
+    "titulo": "RETIRO DE VERÃO 2025",
+    "subtitulo": "Fazenda Serrinha - Conexão com a Natureza",
+    "banner": {
+      "url": "https://assets.fazendaserrinha.com.br/banners/retiro-verao-2025.jpg",
+      "alt": "Banner Retiro Verão 2025"
+    },
+    "logos": [
+      {
+        "url": "https://assets.fazendaserrinha.com.br/logos/fs_logo_circular.png",
+        "alt": "Logo Fazenda Serrinha",
+        "posicao": "principal",
+        "ordem": 1
+      }
+    ],
+    "cores": {
+      "primaria": "#2C5530",
+      "secundaria": "#8B4513",
+      "destaque": "#228B22"
+    }
+  },
+  
+  "detalhes": {
+    "descricao": "Venha viver uma experiência única de conexão com a natureza na Fazenda Serrinha. Retiro com hospedagem completa, alimentação orgânica e atividades de bem-estar.",
+    "data_evento": "2025-02-10",
+    "data_evento_fim": "2025-02-14",
+    "horarios": [
+      {
+        "tipo": "checkin",
+        "horario": "14:00",
+        "descricao": "🏠 Check-in"
+      },
+      {
+        "tipo": "checkout",
+        "horario": "12:00",
+        "descricao": "👋 Check-out"
+      }
+    ],
+    "local": {
+      "nome": "Fazenda Serrinha",
+      "endereco": "Estrada da Serrinha, km 12 - Teresópolis, RJ",
+      "maps_url": "https://maps.google.com/?q=Fazenda+Serrinha+Teresopolis"
+    },
+    "palestrantes": [],
+    "parceiros": [],
+    "observacoes": "Inclui hospedagem, alimentação completa (café, almoço, jantar) e atividades guiadas."
+  },
+  
+  "modalidades": {
+    "habilitadas": ["hospedagem_evento"],
+    "opcoes": [
+      {
+        "id": "hospedagem_completa",
+        "nome": "🏡 Hospedagem Completa",
+        "descricao": "4 dias e 3 noites com pensão completa",
+        "detalhes": "Inclui café da manhã, almoço, jantar e atividades.",
+        "limite_vagas": 30,
+        "gratuito": false,
+        "valor": 1200.00,
+        "tipo": "hospedagem"
+      }
+    ],
+    "periodos_estadia": [
+      {
+        "id": "periodo_completo",
+        "nome": "Período Completo (4 dias / 3 noites)",
+        "data_checkin": "2025-02-10T14:00:00",
+        "data_checkout": "2025-02-14T12:00:00",
+        "valor_base": 1200.00,
+        "primeira_refeicao": "Jantar (10/02)",
+        "ultima_refeicao": "Café da Manhã (14/02)"
+      }
+    ],
+    "acomodacoes": [
+      {
+        "id": "quarto_casal",
+        "nome": "Quarto Casal",
+        "descricao": "Quarto privativo com cama de casal",
+        "valor_adicional": 0,
+        "capacidade": 2,
+        "preferencia_cama": true
+      },
+      {
+        "id": "quarto_compartilhado",
+        "nome": "Quarto Compartilhado",
+        "descricao": "Quarto compartilhado (4 pessoas)",
+        "valor_adicional": -200.00,
+        "capacidade": 4,
+        "preferencia_cama": false
+      }
+    ]
+  },
+  
+  "formulario": {
+    "campos_obrigatorios": [
+      "nome_completo",
+      "email",
+      "telefone",
+      "cpf",
+      "data_nascimento",
+      "periodo_estadia",
+      "acomodacao"
+    ],
+    "campos_opcionais": [
+      "genero",
+      "restricoes_alimentares"
+    ],
+    "campos_personalizados": [
+      {
+        "id": "restricoes_alimentares",
+        "tipo": "textarea",
+        "label": "Restrições Alimentares e Observações (opcional)",
+        "placeholder": "Ex: Alergia a amendoim, vegetariano, necessidades especiais, etc.",
+        "obrigatorio": false,
+        "secao": "hospedagem"
+      }
+    ],
+    "validacoes": {
+      "cpf": {
+        "habilitado": true,
+        "obrigatorio": true,
+        "validar_digitos": true
+      },
+      "telefone": {
+        "paises_habilitados": ["+55"],
+        "pais_padrao": "+55"
+      }
+    },
+    "multiplos_participantes": {
+      "habilitado": true,
+      "minimo": 1,
+      "maximo": 10,
+      "exigir_responsavel_pagamento": true,
+      "exigir_responsavel_crianca": true
+    }
+  },
+  
+  "pagamento": {
+    "habilitado": true,
+    "moeda": "BRL",
+    "exibir_resumo_financeiro": true,
+    "formas_pagamento_opcoes": [
+      {
+        "id": "pix_vista",
+        "label": "PIX à Vista",
+        "tipo": "pix",
+        "descricao": "<h4>POLÍTICA DE CONFIRMAÇÃO E CANCELAMENTO</h4><p><b>Confirmação da Reserva:</b></p><p>O sinal corresponde a <b>30% do valor total da reserva</b>, e deve ser pago no momento da reserva.<br>Enquanto o pagamento do sinal não for realizado, a hospedagem permanecerá disponível para outros interessados.<br>O saldo de <b>70%</b> deverá ser pago até a data de saída.</p><p><b>Cancelamento:</b></p><ul><li>Até 30 dias antes da data de chegada – reembolso de 100% do valor pago.</li><li>Até 15 dias antes da data de chegada – reembolso de 50% do valor pago.</li><li>Menos de 15 dias antes da data de chegada – sem reembolso.</li></ul>",
+        "taxa_gateway_percentual": 0.01,
+        "desconto_percentual": 0.05
+      },
+      {
+        "id": "pix_sinal",
+        "label": "PIX Sinal 30% + 70%",
+        "tipo": "pix_parcelado",
+        "parcelas": 2,
+        "percentuais_parcelas": [0.30, 0.70],
+        "descricao": "<h4>POLÍTICA DE CONFIRMAÇÃO E CANCELAMENTO</h4><p><b>Confirmação da Reserva:</b></p><p>Pagamento em 2 etapas:<br>• <b>30%</b> no ato da reserva (sinal)<br>• <b>70%</b> até a data de saída</p><p><b>Cancelamento:</b></p><ul><li>Até 30 dias antes – reembolso de 100%</li><li>Até 15 dias antes – reembolso de 50%</li><li>Menos de 15 dias – sem reembolso</li></ul>",
+        "taxa_gateway_percentual": 0.01
+      },
+      {
+        "id": "cartao_vista",
+        "label": "Cartão à Vista",
+        "tipo": "cartao",
+        "parcelas_maximas": 1,
+        "juros": false,
+        "descricao": "<h4>PAGAMENTO NO CARTÃO</h4><p>Pagamento integral no cartão de crédito à vista.</p><p><b>Cancelamento:</b> Mesmas regras do PIX.</p>",
+        "taxa_gateway_percentual": 0.035
+      },
+      {
+        "id": "cartao_parcelado",
+        "label": "Cartão Parcelado (até 6x sem juros)",
+        "tipo": "cartao_parcelado",
+        "parcelas_maximas": 6,
+        "juros": false,
+        "descricao": "<h4>PARCELAMENTO SEM JUROS</h4><p>Parcelamento em até <b>6 vezes sem juros</b> no cartão de crédito.</p><p><b>Cancelamento:</b> Mesmas regras do PIX.</p>",
+        "taxa_gateway_percentual": 0.035
+      }
+    ]
+  },
+  
+  "regras_idade_precificacao": {
+    "habilitado": true,
+    "exigir_data_nascimento": true,
+    "hospedagem": [
+      {
+        "faixa_min_anos": 0,
+        "faixa_max_anos": 4,
+        "percentual_valor_adulto": 0.0,
+        "limite_gratuidade_por_reserva": 1,
+        "descricao": "Primeira criança de 0-4 anos grátis",
+        "regra_excedente_gratuito": {
+          "percentual_valor_adulto": 0.5,
+          "descricao": "Crianças 0-4 anos extras pagam 50% da hospedagem"
+        }
+      },
+      {
+        "faixa_min_anos": 5,
+        "faixa_max_anos": 10,
+        "percentual_valor_adulto": 0.5,
+        "descricao": "Crianças de 5 a 10 anos pagam 50% do valor de hospedagem"
+      },
+      {
+        "faixa_min_anos": 11,
+        "percentual_valor_adulto": 1.0,
+        "descricao": "Acima de 10 anos pagam valor integral de hospedagem"
+      }
+    ],
+    "evento": [
+      {
+        "faixa_min_anos": 0,
+        "faixa_max_anos": 4,
+        "percentual_valor_adulto": 0.0,
+        "limite_gratuidade_por_reserva": 1,
+        "descricao": "Primeira criança de 0-4 anos grátis",
+        "regra_excedente_gratuito": {
+          "percentual_valor_adulto": 0.5,
+          "descricao": "Crianças 0-4 anos extras pagam 50% do evento"
+        }
+      },
+      {
+        "faixa_min_anos": 5,
+        "faixa_max_anos": 10,
+        "percentual_valor_adulto": 0.5,
+        "descricao": "Crianças de 5 a 10 anos pagam 50% do valor do evento"
+      },
+      {
+        "faixa_min_anos": 11,
+        "percentual_valor_adulto": 1.0,
+        "descricao": "Acima de 10 anos pagam valor integral do evento"
+      }
+    ]
+  },
+  
+  "cupons_desconto": {
+    "habilitado": true,
+    "exibir_campo": true,
+    "cupons": [
+      {
+        "codigo": "VERAO2025",
+        "tipo_desconto": "percentual",
+        "valor_desconto": 0.10,
+        "descricao": "10% de desconto",
+        "data_validade_inicio": "2024-11-01T00:00:00",
+        "data_validade_fim": "2025-12-31T23:59:59",
+        "aplicacao": "total",
+        "uso_maximo": 50,
+        "uso_por_usuario": 1,
+        "ativo": true
+      },
+      {
+        "codigo": "EVENTODESC50",
+        "tipo_desconto": "fixo",
+        "valor_desconto": 50.00,
+        "descricao": "R$ 50 de desconto no evento",
+        "data_validade_inicio": "2024-11-01T00:00:00",
+        "data_validade_fim": "2025-11-30T23:59:59",
+        "aplicacao": "evento",
+        "uso_maximo": 20,
+        "uso_por_usuario": 1,
+        "ativo": true
+      },
+      {
+        "codigo": "PRIMEIRACOMPRA",
+        "tipo_desconto": "percentual",
+        "valor_desconto": 0.15,
+        "descricao": "15% de desconto para primeira compra",
+        "data_validade_inicio": "2024-11-01T00:00:00",
+        "data_validade_fim": "2025-12-31T23:59:59",
+        "aplicacao": "total",
+        "uso_maximo": null,
+        "uso_por_usuario": 1,
+        "ativo": true,
+        "condicoes": {
+          "primeira_compra": true
+        }
+      }
+    ]
+  },
+  
+  "confirmacao": {
+    "mensagem_sucesso": "Sua reserva na Fazenda Serrinha foi confirmada!",
+    "instrucoes_presencial": "🏡 Nos vemos no dia 10 de fevereiro às 14h para o check-in!\n\n**Endereço:** Fazenda Serrinha - Estrada da Serrinha, km 12 - Teresópolis, RJ\n\n**O que levar:**\n• Roupas confortáveis\n• Protetor solar\n• Repelente\n• Medicamentos pessoais",
+    "email_confirmacao": {
+      "habilitado": true,
+      "remetente": "reservas@fazendaserrinha.com.br",
+      "assunto": "Confirmação de Reserva - Retiro Fazenda Serrinha"
+    }
+  },
+  
+  "integracao": {
+    "webhook_url": "https://criadordigital-n8n-webhook.kttqgl.easypanel.host/webhook/fazenda-serrinha",
+    "webhook_timeout": 15000,
+    "webhook_retry": 2,
+    "campos_extras": {
+      "origem": "formulario_web",
+      "campanha": "retiro_verao_2025",
+      "tipo_reserva": "retiro"
+    }
+  },
+  
+  "termos": {
+    "texto": "1. A reserva só será confirmada após o pagamento do sinal (30%).\n2. O saldo restante (70%) deve ser pago até a data de check-out.\n3. Cancelamentos seguem a política descrita na forma de pagamento escolhida.\n4. A Fazenda Serrinha se reserva o direito de alterar a programação por motivos de força maior.\n5. É obrigatório informar restrições alimentares com antecedência.",
+    "url_completa": "https://www.fazendaserrinha.com.br/termos-reserva",
+    "obrigatorio": true
+  },
+  
+  "seo": {
+    "title": "Reserva - Retiro de Verão 2025 | Fazenda Serrinha",
+    "description": "Reserve sua vaga no Retiro de Verão 2025 na Fazenda Serrinha. 4 dias de conexão com a natureza, alimentação orgânica e atividades de bem-estar.",
+    "keywords": "retiro, fazenda serrinha, natureza, hospedagem, teresópolis, bem-estar",
+    "og_image": "https://assets.fazendaserrinha.com.br/banners/retiro-verao-2025.jpg"
+  }
+}
