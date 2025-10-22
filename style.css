@@ -1,0 +1,1904 @@
+/* Importação de Fontes */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Variáveis CSS */
+:root {
+    /* Novas Cores Neutras */
+    --color-black: #000000;
+    --color-dark-gray: #212121;
+    --color-medium-gray: #666666;
+    --color-light-gray: #e0e0e0;
+    
+    /* Redefinindo variáveis existentes */
+    --primary-color: var(--color-black);
+    --secondary-color: var(--color-dark-gray);
+    --accent-color: var(--color-medium-gray);
+    --background-color: #f8faf9;
+    --card-background: #ffffff;
+    --text-primary: var(--color-dark-gray);
+    --text-secondary: var(--color-medium-gray);
+    --border-color: var(--color-light-gray);
+    --success-color: #27ae60;
+    --error-color: #e74c3c;
+    --warning-color: #f39c12;
+    --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.12);
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+/* Reset e Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Header Banner */
+.header-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 280px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+/* Container Principal */
+.container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 160px 20px 40px;
+}
+
+/* Card do Formulário */
+.form-card {
+    position: relative;
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    width: 100%;
+    max-width: 800px;
+    padding: 80px 40px 40px;
+    margin-top: 60px;
+}
+
+/* Logo Container */
+.logo-container {
+    position: absolute;
+    top: -60px;
+    left: 50px;  /* ← ADICIONE ESTA LINHA */
+    width: 110px;
+    height: 110px;
+    background: transparent;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    z-index: 10;
+}
+
+.logo {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;       /* evita achatamento e mantém o recorte circular perfeito e antes era cover */
+    border-radius: 50%;
+    background: var(--card-background);
+}
+
+/* Logo Duplo para Parceiros */
+.partner-logo {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: contain;
+    background: var(--card-background); /* ← ALTERADO DE var(---background) PARA transparent */
+    border: 3px solid var(---background);
+    box-shadow: var(--shadow-light);
+}
+
+.partner-logo.logo-main {
+    z-index: 3; /* ← Logo principal atrás */
+    left: 50%;
+    top: 50%;
+    transform: translate(-75%, -50%); /* ← Posição base (esquerda e embaixo) */
+}
+
+.partner-logo.logo-partner {
+    z-index: 4; /* ← Logo parceiro na frente */
+    left: 50%;
+    top: 50%;
+    transform: translate(-1%, -97%); /* ← ACIMA E À DIREITA */
+}
+
+/* Seções do Formulário */
+.form-content {
+    text-align: center;
+}
+
+.welcome-section {
+    margin-bottom: 40px;
+}
+
+.welcome-section h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.welcome-section p {
+    font-size: 1.1em;
+    color: var(--color-dark-gray); /* Preto mais suave que o título */
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.observations {
+    font-style: italic;
+    color: var(--warning-color);
+    font-weight: 500;
+}
+
+/* Estados de Loading e Erro */
+.loading-state {
+    padding: 40px 0;
+    color: var(--secondary-color);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--border-color);
+    border-left-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.error-state {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.error-icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.error-state h3 {
+    color: var(--error-color);
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.error-state p {
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+/* Botões */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    gap: 8px;
+    min-height: 48px;
+}
+
+.btn-primary {
+    background: var(--color-black);
+    color: white;
+    box-shadow: var(--shadow-light);
+}
+
+.btn-primary:hover {
+    background: var(--color-dark-gray);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-secondary {
+    background: var(--background-color);
+    color: var(--color-dark-gray);
+    border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    border-color: var(--color-dark-gray);
+    background: var(--color-dark-gray);
+    color: white;
+}
+
+.btn-danger {
+    background: var(--error-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
+}
+
+.btn-advance {
+    margin-top: 30px;
+    font-size: 1.1em;
+    padding: 16px 32px;
+}
+
+.btn-advance:hover .btn-arrow {
+    transform: translateX(3px);
+}
+
+/* Títulos de Seção */
+.section-title {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: none;
+    padding-bottom: 15px;
+}
+
+/* Blocos de Participantes */
+.participant-block {
+    background: none;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    margin-bottom: 25px;
+    transition: var(--transition);
+}
+
+.participant-block:hover {
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-light);
+}
+
+.participant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.participant-header h3 {
+    color: var(--primary-color);
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+/* Formulários */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-row:last-child {
+    margin-bottom: 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+
+.form-control {
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1em;
+    transition: var(--transition);
+    background: white;
+    width: 100%; /* ← Garante que ocupa 100% do contêiner pai */
+    box-sizing: border-box; /* ← Inclui padding e border na largura total */
+    min-width: 0; /* ← Importante para layouts flexbox */
+    text-align: left;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--color-dark-gray);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-control::placeholder {
+    color: var(--text-secondary);
+    text-align: left;
+}
+
+/* Seções Condicionais */
+.section-divider {
+    margin: 30px 0 20px;
+    padding: 15px 0;
+    border-top: 2px solid var(--border-color);
+}
+
+.section-divider h4 {
+    color: var(--secondary-color);
+    font-size: 1.2em;
+    font-weight: 600;
+    text-align: left;
+}
+
+.checkin-checkout-info {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    text-align: left;
+}
+
+.checkin-info, .checkout-info {
+    font-size: 0.95em;
+    color: var(--text-primary);
+    margin: 5px 0;
+    text-align: left;
+}
+
+.price-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    padding: 15px 0px;
+    border-radius: 8px;
+    margin-top: 15px;
+    border: none;
+}
+
+.price-label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.price-value {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Info Text */
+.info-text {
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-radius: 6px;
+    padding: 12px;
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: #1565c0;
+}
+
+/* Feedback Messages */
+.feedback-message {
+    font-size: 0.9em;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.feedback-message.error-message {
+    color: var(--error-color);
+}
+
+.feedback-message.success-message {
+    color: var(--success-color);
+}
+
+/* Checkbox Customizado */
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    font-size: 0.95em;
+    line-height: 1.5;
+    gap: 12px; /* ← Adicione esta linha para espaçamento consistente */
+
+    /* Adicione estas linhas para evitar hifenização */
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    word-break: normal;
+    overflow-wrap: break-word;
+    
+}
+
+.checkbox-container .checkbox-text {
+    flex: 1;
+    text-align: left;
+    
+    /* Reforce a configuração anti-hífen */
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    word-break: normal;
+    overflow-wrap: break-word;
+}
+
+.checkbox-container input {
+    display: none;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.checkbox-container input:checked + .checkmark {
+    background: var(--color-black);
+    border-color: var(--color-black);
+}
+
+.checkbox-container input:checked + .checkmark::after {
+    content: '✓';
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Responsável pelo Pagamento */
+.responsible-payer-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px dashed var(--border-color);
+    margin-bottom: 15px;
+}
+
+.responsible-payer-section .checkbox-container {
+    /* justify-content: center; */ /* ← Remova ou comente esta linha */
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Botão Adicionar Participante */
+.btn-add-participant {
+    width: 100%;
+    margin: 30px 0;
+    padding: 16px;
+    font-size: 1.1em;
+    border: 2px dashed var(--color-medium-gray);
+    background: transparent;
+    color: var(--color-medium-gray);
+}
+
+.btn-add-participant:hover {
+    background: var(--color-dark-gray);
+    color: white;
+    border-style: solid;
+}
+
+/* Navegação */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.navigation-buttons .btn {
+    flex: 1;
+    max-width: 200px;
+}
+
+/* Resumo e Totais */
+.totals-summary {
+    background: var(--background-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin: 30px 0;
+}
+
+.total-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 1.1em;
+}
+
+.total-line.discount {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.total-line.final {
+    border-top: 1px solid var(--primary-color);
+    margin-top: 5px;
+    padding-top: 5px;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Seções de Cupom e Pagamento */
+.coupon-section, .payment-method-section {
+    margin: 7px 0;
+}
+
+.coupon-section label, .payment-method-section label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    text-align: left;
+}
+
+.help-text {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* Terms Section */
+.terms-section {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.terms-section a {
+    color: var(--primary-color);
+    text-decoration: underline;
+    font-weight: 600;
+    white-space: nowrap; /* ← Evita quebra no meio do link */
+}
+
+.terms-section a:hover {
+    text-decoration: underline;
+    color: var(--color-dark-gray);
+}
+
+/* Tela de Confirmação */
+.success-container {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.success-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+}
+
+.success-container h2 {
+    color: var(--success-color);
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.confirmation- {
+    background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+    border: 2px solid var(--success-color);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    margin: 30px 0;
+}
+
+.confirmation- h3 {
+    color: var(--success-color);
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.confirmation-details {
+    margin: 25px 0;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(39, 174, 96, 0.2);
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-item .label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.detail-item .value {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.payment-instruction {
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: var(--text-secondary);
+}
+
+.payment-link-btn {
+    margin-top: 30px;
+    font-size: 1.2em;
+    padding: 18px 36px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 120px 15px 30px;
+    }
+    
+    .form-card {
+        padding: 60px 25px 30px;
+        margin-top: 40px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Correção específica para inputs de data no mobile */
+    input[type="date"] {
+        width: calc(100% - 4px) !important; /* ← Subtrai a largura da borda */
+        max-width: calc(100% - 4px) !important;
+        box-sizing: border-box !important;
+        padding: 12px 16px !important;
+        font-size: 16px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        margin: 0 !important; /* ← Remove qualquer margem */
+        text-align: left;
+    }
+
+    /* Garante que todos os form-controls se comportem bem no mobile */
+    .form-control {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        text-align: left;
+    }
+    
+    /* Correção para o contêiner do formulário */
+    .form-group {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden; /* Evita overflow horizontal */
+    }
+
+    .checkin-checkout-info {
+        text-align: left;
+    }
+    
+    .checkin-info, .checkout-info {
+        text-align: left;
+    }
+    
+    .logo-container {
+        width: 120px;
+        height: 120px;
+        top: -60px;
+        left: 20px;
+        background: transparent; /* ← Garantir transparência no mobile */
+        box-shadow: none;
+    }
+    
+    .logo {
+        width: 110px;
+        height: 110px;
+        object-fit: contain; /* Alterado de 'cover' para 'contain' */
+    }
+    
+    .welcome-section h1 {
+        font-size: 2.2em;
+        font-weight: 900; /* Mais forte como na imagem */
+        color: var(--color-black); /* Preto puro para o título */
+        margin-bottom: 20px;
+        line-height: 1.3;
+    }
+
+/* Correção de alinhamento para dados dos participantes no mobile */
+    .participants-summary {
+        margin: 30px 0;
+        padding-left: 0; /* ← Remove padding no mobile */
+    }
+
+    /* Força alinhamento à esquerda para todos os elementos dos participantes */
+    .participants-summary * {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        text-align: left !important;
+    }
+    
+    /* Exceção para manter o grid funcionando */
+    .participant-details p {
+        display: grid !important;
+        grid-template-columns: max-content 1fr !important;
+        justify-items: start !important;
+    }
+    
+    .participant-summary-item {
+        padding: 15px 0; /* ← Remove padding lateral no mobile */
+    }
+    
+    .participant-summary-item h4 {
+        padding-left: 0; /* ← Garante alinhamento à esquerda no mobile */
+        margin-left: 0;
+    }
+    
+    .participant-details {
+        padding-left: 0; /* ← Remove qualquer padding dos detalhes no mobile */
+        margin-left: 0;
+    }
+
+    .checkbox-container {
+        align-items: flex-start;
+        line-height: 1.4;
+    }
+    
+    .terms-section {
+        text-align: left; /* ← Alinha à esquerda no mobile */
+        margin: 25px 0;
+    }
+    
+    .terms-section a {
+        white-space: normal; /* ← Permite quebra do link se necessário */
+        display: inline;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .navigation-buttons {
+        flex-direction: column;
+    }
+    
+    .navigation-buttons .btn {
+        max-width: none;
+    }
+    
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .partner-logo.logo-main {
+        transform: translate(-75%, -50%); /* ← Posição base (esquerda e embaixo) */
+    }
+    
+    .partner-logo.logo-partner {
+        transform: translate(-10%, -85%); /* ← ACIMA E À DIREITA */
+    }
+}
+
+@media (max-width: 480px) {
+    .form-card {
+        padding: 50px 20px 25px;
+    }
+    
+    .welcome-section h1 {
+        font-size: 1.6em;
+    }
+    
+    .section-title {
+        font-size: 1.5em;
+    }
+    
+    .participant-block {
+        padding: 20px;
+    }
+    
+    .btn {
+        padding: 12px 20px;
+        font-size: 0.95em;
+    }
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-content {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Estados de Hover e Focus */
+.participant-block:focus-within {
+    border-color: var(--color-dark-gray);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Melhorias de Acessibilidade */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Estados de Validação */
+.form-control.error {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.form-control.success {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+}
+
+
+/* Estilos para resumo e cálculos */
+.responsible-payer-summary {
+    background: none;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.responsible-payer-summary h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.payer-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.payer-info p {
+    margin: 0;
+    font-size: 0.95em;
+    color: var(--text-primary);
+
+    /* Alinhamento título/valor dentro de cada linha */
+    display: grid; /* transforma o <p> em um grid */
+    grid-template-columns: max-content 1fr; /* 1ª coluna: largura do título, 2ª: ocupa o restante */
+    gap: 6px; /* espaçamento entre título e valor */
+    align-items: baseline; /* alinha linhas de base do texto para ficar visualmente nivelado */
+    justify-items: start;  /* ALINHA CADA CÉLULA À ESQUERDA */
+    text-align: left;      /* garante que o texto dentro de cada célula comece à esquerda */
+}
+
+.payer-info strong {
+    color: var(--primary-color);
+    text-align: left;         /* garante alinhamento à esquerda do título */
+    white-space: nowrap;      /* evita quebra de linha no título (CPF:, Nome:, etc.) */
+}
+
+.participants-summary {
+    margin: 30px 0;
+    padding-left: 10px; /* ← ADICIONE ESTA LINHA */
+}
+
+.participants-summary h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.participant-summary-item {
+    background: none;
+    border: none;
+    border-radius: 8px;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    transition: var(--transition);
+}
+
+.participant-summary-item h4 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 10px;
+    padding-left: 0; /* ← ADICIONE ESTA LINHA para garantir alinhamento */
+    margin-left: 0;  /* ← ADICIONE ESTA LINHA para garantir alinhamento */
+}
+
+.participant-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.participant-details p {
+    margin: 0;
+    font-size: 0.95em;
+    color: var(--text-primary);
+
+    /* Alinhamento título/valor dentro de cada linha */
+    display: grid; /* transforma o <p> em um grid */
+    grid-template-columns: max-content 1fr; /* 1ª coluna: largura do título, 2ª: ocupa o restante */
+    gap: 6px; /* espaçamento entre título e valor */
+    align-items: baseline; /* alinha linhas de base do texto para ficar visualmente nivelado */
+    justify-items: start;  /* ALINHA CADA CÉLULA À ESQUERDA */
+    text-align: left;      /* garante que o texto dentro de cada célula comece à esquerda */
+}
+
+.participant-details strong {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+/* Valores destacados */
+.participant-details p:contains("Valor") {
+    font-weight: 600;
+    color: var(--success-color);
+}
+
+/* Estados de validação melhorados */
+.form-control.calculating {
+    border-color: var(--warning-color);
+    background: linear-gradient(90deg, #fff 0%, #fffbf0 100%);
+}
+
+.price-display.updating {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border-color: var(--warning-color);
+}
+
+.price-display.updated {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    border-color: var(--success-color);
+    animation: priceUpdate 0.5s ease-out;
+}
+
+@keyframes priceUpdate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Feedback de cupom melhorado */
+.coupon-section {
+    position: relative;
+}
+
+.coupon-section input.success {
+    border-color: var(--success-color);
+    background: linear-gradient(90deg, #fff 0%, #f0fff4 100%);
+}
+
+.coupon-section input.error {
+    border-color: var(--error-color);
+    background: linear-gradient(90deg, #fff 0%, #fff5f5 100%);
+}
+
+#coupon-feedback {
+    margin-top: 8px;
+    font-weight: 500;
+    font-size: 0.9em;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+#coupon-feedback.success-message {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+
+#coupon-feedback.error-message {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+}
+
+/* Totais com animação */
+.totals-summary .total-line {
+    transition: var(--transition);
+}
+
+.totals-summary .total-line.updating {
+    background: rgba(243, 156, 18, 0.1);
+    transform: scale(1.01);
+}
+
+.totals-summary .total-line.final.updating {
+    background: rgba(44, 85, 48, 0.1);
+}
+
+/* Loading states para cálculos */
+.calculating-indicator {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border-color);
+    border-left-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-left: 8px;
+}
+
+/* Responsividade para resumo */
+@media (max-width: 768px) {
+    .payer-info {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .participant-details {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .participant-summary-item {
+        padding: 15px;
+    }
+}
+
+/* Melhorias de acessibilidade para cálculos */
+.price-value[aria-live="polite"] {
+    /* Anunciar mudanças de preço para leitores de tela */
+}
+
+.calculation-status {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* Estados de hover para elementos de resumo */
+.participant-summary-item:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+}
+
+.totals-summary:focus-within {
+    box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+}
+
+/* Estilos para integração e estados de carregamento */
+
+/* Estados de submissão */
+.submission-error {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    border: 2px solid var(--error-color);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    margin: 30px 0;
+    text-align: center;
+}
+
+.submission-error .error-icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.submission-error h3 {
+    color: var(--error-color);
+    margin-bottom: 15px;
+}
+
+.submission-error p {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+/* Estados de pagamento */
+.payment-options {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.payment-options h4 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.payment-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.payment-actions .btn {
+    flex: 1;
+    max-width: 150px;
+}
+
+.qr-code-container {
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.payment-success {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    border: 2px solid var(--success-color);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.payment-success .success-icon {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.payment-success p {
+    color: var(--success-color);
+    font-weight: 600;
+    margin: 5px 0;
+}
+
+.expires-info {
+    font-size: 0.9em;
+    color: var(--text-secondary) !important;
+    font-weight: 400 !important;
+}
+
+.payment-link-error {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    border: 2px solid var(--error-color);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.payment-link-error .error-icon {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.payment-link-error p {
+    color: var(--error-color);
+    margin: 5px 0;
+}
+
+.payment-link-error .error-message {
+    font-weight: 600;
+    font-style: italic;
+}
+
+/* Toast notifications */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    min-width: 300px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-medium);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: slideInRight 0.3s ease-out;
+}
+
+.toast-success {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    border: 1px solid var(--success-color);
+    color: var(--success-color);
+}
+
+.toast-error {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    border: 1px solid var(--error-color);
+    color: var(--error-color);
+}
+
+.toast-info {
+    background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+    border: 1px solid #17a2b8;
+    color: #17a2b8;
+}
+
+.toast-message {
+    flex: 1;
+    font-weight: 600;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: inherit;
+    margin-left: 15px;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toast-close:hover {
+    opacity: 0.7;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Indicadores de conectividade */
+.connectivity-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+.connectivity-indicator.online {
+    background: var(--success-color);
+    color: white;
+}
+
+.connectivity-indicator.offline {
+    background: var(--error-color);
+    color: white;
+}
+
+.connectivity-indicator.testing {
+    background: var(--warning-color);
+    color: white;
+}
+
+/* Estados de carregamento melhorados */
+.btn.loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    color: white;
+}
+
+/* Melhorias para botões de ação */
+.new-registration-btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.action-buttons .btn {
+    flex: 1;
+}
+
+/* Estados de validação de conectividade */
+.webhook-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.webhook-status.connected {
+    background: rgba(39, 174, 96, 0.1);
+    color: var(--success-color);
+}
+
+.webhook-status.disconnected {
+    background: rgba(231, 76, 60, 0.1);
+    color: var(--error-color);
+}
+
+.webhook-status.testing {
+    background: rgba(243, 156, 18, 0.1);
+    color: var(--warning-color);
+}
+
+.webhook-status-icon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+/* Animações para estados de carregamento */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading-text {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Responsividade para elementos de integração */
+@media (max-width: 768px) {
+    .toast {
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+    }
+    
+    .payment-actions {
+        flex-direction: column;
+    }
+    
+    .payment-actions .btn {
+        max-width: none;
+    }
+    
+    .connectivity-indicator {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        text-align: center;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+}
+
+/* Estados de foco melhorados */
+.toast:focus-within {
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.payment-options:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+}
+
+/* Melhorias de acessibilidade */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Indicadores de progresso */
+.progress-indicator {
+    width: 100%;
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--color-black); /* Fundo preto sólido */
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.progress-bar.indeterminate {
+    width: 30%;
+    animation: indeterminateProgress 2s linear infinite;
+}
+
+@keyframes indeterminateProgress {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(400%);
+    }
+}
+
+/* Ajustes específicos para a seção de política */
+.responsible-payer-summary.policy-section {
+    border: none;
+    background: var(--card-background);
+    margin: 25px 0;
+}
+
+.responsible-payer-summary .policy-content h4 {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-top: 0;
+    text-align: left; /* Centralizar o título principal */
+}
+
+.responsible-payer-summary .policy-content p {
+    margin-bottom: 10px;
+    font-size: 0.95em;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.responsible-payer-summary .policy-content b {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.responsible-payer-summary .policy-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding-left: 0;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.responsible-payer-summary .policy-content li {
+    margin-bottom: 5px;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/* Estilos para campos de período e acomodação quando exibidos como texto estático */
+.stay-period-info,
+.accommodation-info {
+    text-align: left;
+    border: none;
+    color: var(--text-primary);
+    background-color: var(--background-color);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 1em;
+    text-decoration: none;
+}
+
+/* ========================================
+   MELHORIAS DE VALIDAÇÃO E FEEDBACK
+   ======================================== */
+
+/* Efeito de destaque para campos com erro */
+.field-highlight {
+    animation: fieldHighlight 2s ease-in-out;
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.5) !important;
+}
+
+@keyframes fieldHighlight {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(220, 53, 69, 0.8);
+    }
+}
+
+/* Melhorar feedback visual para checkboxes de responsável */
+.responsible-payer-section.error .checkbox-container,
+.responsible-child-section.error .checkbox-container {
+    border: 2px solid var(--error-color);
+    border-radius: 4px;
+    padding: 10px;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Estilo específico para campos select com erro */
+select.form-control.error {
+    border-color: var(--error-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+/* Melhorar feedback para seções de responsável */
+.terms-section.error {
+    border: 2px solid var(--error-color);
+    border-radius: 8px;
+    padding: 15px;
+    background-color: rgba(220, 53, 69, 0.05);
+}
+
+/* Estilo para campos obrigatórios em foco */
+.form-control:focus.error {
+    border-color: var(--error-color) !important;
+    box-shadow: 0 0 0 0.3rem rgba(220, 53, 69, 0.3) !important;
+}
+
+/* Melhorar visibilidade dos campos com erro no mobile */
+@media (max-width: 768px) {
+    .field-highlight {
+        box-shadow: 0 0 15px rgba(220, 53, 69, 0.7) !important;
+    }
+    
+    .form-control.error {
+        border-width: 3px !important;
+    }
+    
+    .responsible-payer-section.error .checkbox-container,
+    .responsible-child-section.error .checkbox-container {
+        border-width: 3px;
+        padding: 15px;
+    }
+}
+
+/* Animação suave para scroll automático */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Estilo para campos válidos */
+.form-control.valid {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 0.2rem rgba(39, 174, 96, 0.15);
+}
+
+/* Feedback específico para email */
+.email-input.error {
+    border-color: var(--error-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.email-input.valid {
+    border-color: var(--success-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(39, 174, 96, 0.15) !important;
+}
+
+/* Indicador visual para email válido */
+.email-input.valid {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2327ae60' viewBox='0 0 16 16'%3E%3Cpath d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+}
+
+/* Container do telefone com país */
+.phone-input-container {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.country-select {
+    flex: 0 0 100px; /* Largura fixa de 100px */
+    min-width: 100px;
+    font-size: 14px;
+    text-align: center;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.phone-input {
+    flex: 1;
+    min-width: 0; /* Permite que o campo encolha */
+}
+
+/* RESPONSIVO MELHORADO - Mantém lado a lado em smartphones */
+@media (max-width: 768px) {
+    .phone-input-container {
+        /* REMOVIDO: flex-direction: column; */
+        /* Mantém flex-direction: row (padrão) */
+        gap: 6px; /* Reduz um pouco o gap em telas menores */
+    }
+    
+    .country-select {
+        flex: 0 0 85px; /* Reduz ligeiramente a largura em mobile */
+        min-width: 85px;
+        font-size: 13px; /* Fonte um pouco menor */
+    }
+    
+    .phone-input {
+        flex: 1;
+        min-width: 120px; /* Garante largura mínima legível */
+    }
+}
+
+/* Para telas MUITO pequenas (menos de 360px) */
+@media (max-width: 360px) {
+    .phone-input-container {
+        gap: 4px;
+    }
+    
+    .country-select {
+        flex: 0 0 80px;
+        min-width: 80px;
+        font-size: 12px;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+    
+    .phone-input {
+        min-width: 100px;
+        font-size: 14px;
+    }
+}
+
+/* Estilo para campo de telefone com erro */
+.phone-input.error {
+    border-color: #e74c3c;
+    background-color: #fdf2f2;
+}
+
+.phone-input.valid {
+    border-color: #27ae60;
+    background-color: #f2fdf2;
+}
+
+/* Estilo adicional para melhor aparência do select */
+.country-select option {
+    padding: 8px;
+    font-size: 14px;
+}
+
+/* Garantir que o container pai não force quebra de linha */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 250px; /* Largura mínima para o grupo do telefone */
+}
+
+/* Ajuste específico para o grupo do telefone */
+.form-group:has(.phone-input-container) {
+    min-width: 280px; /* Um pouco maior para acomodar país + telefone */
+}
+
+/* Fallback para navegadores que não suportam :has() */
+.form-group .phone-input-container {
+    min-width: 280px;
+}
+
+
+/* Adicione ao seu arquivo CSS */
+.free-indicator {
+    color: #28a745;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.discount-indicator {
+    color: #ffc107;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.participant-summary-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+}
+
+.participant-details p {
+    margin: 5px 0;
+}
+
+/* Seção de preferência de cama */
+.bed-preference-section {
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+.bed-preference-section .form-group {
+    margin-bottom: 10px;
+}
+
+.bed-preference-info {
+    font-size: 0.95em;
+    color: var(--text-primary);
+    margin-top: 5px;
+    text-align: left;
+    font-style: italic; /* Adiciona o estilo itálico */
+    /* Remove qualquer background, border, padding ou border-radius que possa existir */
+    background: none;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+/* Indicador visual para seções condicionais */
+.bed-preference-section.highlighted {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Ajustar os estilos para que todos os elementos dentro de checkin-checkout-info se alinhem igualmente */
+.checkin-info, .checkout-info,
+.primeira-refeicao-info, .ultima-refeicao-info {
+    font-size: 0.95em;
+    color: var(--text-primary);
+    margin: 5px 0; /* Margem consistente para todos os itens */
+    text-align: left;
+    /* Remova qualquer padding, background ou border-radius adicionais aqui */
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+    .checkin-info, .checkout-info,
+    .primeira-refeicao-info, .ultima-refeicao-info {
+        font-size: 0.85em;
+        margin: 3px 0;
+    }
+}
+
+/* Seção de restrições */
+.restrictions-section {
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+.restrictions-section .form-group {
+    margin-bottom: 10px;
+}
+
+.restrictions-input {
+    resize: vertical; /* Permite redimensionar apenas verticalmente */
+    min-height: 80px;
+    font-family: inherit;
+}
+
+.restrictions-info {
+    font-size: 0.95em;
+    color: var(--text-primary);
+    margin-top: 5px;
+    text-align: left;
+    font-style: italic; /* Adiciona o estilo itálico */
+    /* Remove qualquer background, border, padding ou border-radius que possa existir */
+    background: none;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+    .restrictions-input {
+        min-height: 70px;
+        font-size: 16px; /* Evita zoom no iOS */
+    }
+    
+    .restrictions-info {
+        font-size: 0.85em;
+    }
+}
+
+/* Estilos para campo de gênero */
+.gender-select {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.gender-select option {
+    padding: 8px;
+    font-size: 14px;
+}
+
+/* Garantir que o select se comporte bem no mobile */
+@media (max-width: 768px) {
+    .gender-select {
+        font-size: 16px; /* Evita zoom no iOS */
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
